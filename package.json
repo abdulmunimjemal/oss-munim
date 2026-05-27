@@ -1,0 +1,24 @@
+{
+  "name": "oss-munim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "oss.munim.io — documentation hub for Munim's open-source projects.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.39.2",
+    "astro": "^6.4.2",
+    "sharp": "^0.34.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}
