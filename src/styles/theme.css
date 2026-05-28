@@ -1,0 +1,43 @@
+/* Munim · OSS — violet accent over Starlight's defaults. Minimal, modern. */
+
+:root {
+  /* Dark theme (default) — violet accent */
+  --sl-color-accent-low: #2d1b54;
+  --sl-color-accent: #8b5cf6;
+  --sl-color-accent-high: #cabffd;
+
+  --sl-color-text-accent: var(--sl-color-accent-high);
+}
+
+:root[data-theme="light"] {
+  --sl-color-accent-low: #ece3fe;
+  --sl-color-accent: #6d28d9;
+  --sl-color-accent-high: #2a1259;
+
+  --sl-color-text-accent: var(--sl-color-accent);
+}
+
+/* Splash hero: tighten the type and give the tagline some room to breathe. */
+.hero h1 {
+  letter-spacing: -0.02em;
+}
+
+.hero .tagline {
+  margin-top: 0.5rem;
+  max-width: 40ch;
+}
+
+/* A soft violet glow behind the hero illustration / title on the landing page. */
+.hero > .copy {
+  position: relative;
+}
+
+/* Slightly rounder, calmer cards. */
+.card {
+  border-radius: 0.75rem;
+}
+
+/* Inline code reads a touch softer than the default. */
+:not(pre) > code {
+  border-radius: 0.35rem;
+}
