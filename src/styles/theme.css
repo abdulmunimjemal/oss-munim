@@ -1,43 +1,58 @@
-/* Munim · OSS — violet accent over Starlight's defaults. Minimal, modern. */
+/* Munim · OSS docs theme — matches the landing page.
+   Distinctive type (Bricolage display, Hanken body, IBM Plex Mono code) and a
+   sharp violet accent over a near-black canvas. */
 
 :root {
-  /* Dark theme (default) — violet accent */
-  --sl-color-accent-low: #2d1b54;
-  --sl-color-accent: #8b5cf6;
-  --sl-color-accent-high: #cabffd;
-
-  --sl-color-text-accent: var(--sl-color-accent-high);
+  --sl-font: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --sl-font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
+/* Dark theme (default) */
+:root {
+  --sl-color-accent-low: #2a1d4d;
+  --sl-color-accent: #8b5cf6;
+  --sl-color-accent-high: #c4b5fd;
+  --sl-color-text-accent: #c4b5fd;
+
+  --sl-color-bg: #0a0a0c;
+  --sl-color-bg-nav: rgba(10, 10, 12, 0.85);
+  --sl-color-bg-sidebar: #0a0a0c;
+  --sl-color-hairline-light: rgba(255, 255, 255, 0.09);
+  --sl-color-gray-6: #0e0e13;
+}
+
+/* Light theme */
 :root[data-theme="light"] {
   --sl-color-accent-low: #ece3fe;
   --sl-color-accent: #6d28d9;
   --sl-color-accent-high: #2a1259;
-
-  --sl-color-text-accent: var(--sl-color-accent);
+  --sl-color-text-accent: #6d28d9;
 }
 
-/* Splash hero: tighten the type and give the tagline some room to breathe. */
-.hero h1 {
+/* Headings in the display face for personality. */
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3,
+.content-panel h1,
+h1#_top,
+.site-title {
+  font-family: "Bricolage Grotesque Variable", var(--sl-font);
   letter-spacing: -0.02em;
 }
 
-.hero .tagline {
-  margin-top: 0.5rem;
-  max-width: 40ch;
+.site-title {
+  font-weight: 600;
 }
 
-/* A soft violet glow behind the hero illustration / title on the landing page. */
-.hero > .copy {
-  position: relative;
-}
-
-/* Slightly rounder, calmer cards. */
-.card {
-  border-radius: 0.75rem;
-}
-
-/* Inline code reads a touch softer than the default. */
-:not(pre) > code {
+/* Calmer rounded code + cards. */
+.sl-markdown-content :not(pre) > code {
   border-radius: 0.35rem;
+}
+.card {
+  border-radius: 0.8rem;
+}
+
+/* A subtle violet glow under the top nav, echoing the landing. */
+:root {
+  --sl-nav-pad-y: 0.85rem;
 }

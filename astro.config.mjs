@@ -11,7 +11,8 @@ export default defineConfig({
       description:
         "Small, sharp open-source tools for building with LLMs — by Abdulmunim Jemal.",
       logo: {
-        src: "./src/assets/logo.svg",
+        light: "./src/assets/logo-light.svg",
+        dark: "./src/assets/logo-dark.svg",
         replacesTitle: false,
       },
       social: [
@@ -24,13 +25,16 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://github.com/abdulmunimjemal/oss/edit/main/",
       },
-      customCss: ["./src/styles/theme.css"],
+      customCss: [
+        "@fontsource-variable/bricolage-grotesque",
+        "@fontsource-variable/hanken-grotesk",
+        "@fontsource/ibm-plex-mono/400.css",
+        "@fontsource/ibm-plex-mono/500.css",
+        "@fontsource/ibm-plex-mono/600.css",
+        "./src/styles/theme.css",
+      ],
       lastUpdated: true,
       sidebar: [
-        {
-          label: "Start here",
-          items: [{ label: "Open source by Munim", link: "/" }],
-        },
         {
           label: "promptsize",
           items: [

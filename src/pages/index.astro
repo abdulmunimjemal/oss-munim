@@ -1,0 +1,425 @@
+---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/hanken-grotesk";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/ibm-plex-mono/600.css";
+
+const year = 2026;
+const projects = [
+  {
+    name: "promptsize",
+    tag: "v0.1.0",
+    blurb:
+      "size-limit for LLM prompts. Count the tokens in your prompt and context files, set budgets, and fail CI when one grows past its limit.",
+    href: "/promptsize/",
+  },
+];
+
+const principles = [
+  {
+    n: "01",
+    title: "One sharp problem",
+    body: "Every tool solves a single, well-scoped problem. No kitchen sinks, no frameworks pretending to be libraries.",
+  },
+  {
+    n: "02",
+    title: "Offline & deterministic",
+    body: "Where it matters, tools run with no network and no API keys — the same input always yields the same result. Built for CI.",
+  },
+  {
+    n: "03",
+    title: "CI-native",
+    body: "Clear exit codes, GitHub Actions, machine-readable output. Designed to live in your pipeline, not a dashboard you forget.",
+  },
+  {
+    n: "04",
+    title: "Typed & tested",
+    body: "Strict TypeScript, real test suites, and documentation that stays in sync with the code it describes.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Munim · OSS — small, sharp tools for building with LLMs</title>
+    <meta
+      name="description"
+      content="Open-source tools for building with LLMs by Abdulmunim Jemal. Small, focused, CI-native libraries — starting with promptsize."
+    />
+    <meta property="og:title" content="Munim · OSS" />
+    <meta
+      property="og:description"
+      content="Small, sharp open-source tools for building with LLMs."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://oss.munim.io" />
+  </head>
+
+  <body>
+    <div class="bg" aria-hidden="true">
+      <div class="bg-grid"></div>
+      <div class="bg-glow"></div>
+    </div>
+
+    <header class="nav reveal">
+      <a class="brand" href="/">
+        <svg class="mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <rect x="6" y="20" width="4.4" height="8" rx="1.6" fill="var(--accent)"></rect>
+          <rect x="14.8" y="14" width="4.4" height="14" rx="1.6" fill="var(--accent)"></rect>
+          <rect x="23.6" y="9" width="4.4" height="19" rx="1.6" fill="var(--accent-hi)"></rect>
+          <path d="M4 6.5H30" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="0.1 5"></path>
+        </svg>
+        <span class="wordmark">munim<span class="slash">/</span>oss</span>
+      </a>
+      <nav class="links">
+        <a href="/promptsize/">Docs</a>
+        <a href="https://github.com/abdulmunimjemal/promptsize">promptsize</a>
+        <a href="https://github.com/abdulmunimjemal" class="ext">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="kicker reveal">// open source · llm tooling</p>
+          <h1 class="reveal">
+            Small, sharp tools for
+            <span class="accent">building with LLMs.</span>
+          </h1>
+          <p class="lede reveal">
+            Focused, well-tested, CI-native libraries — each does exactly one
+            thing well. First up: <strong>promptsize</strong>, a size-limit for
+            your prompts.
+          </p>
+          <div class="actions reveal">
+            <a class="btn btn-primary" href="/promptsize/">
+              Explore promptsize <span class="arr">→</span>
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/abdulmunimjemal">
+              GitHub ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-term reveal">
+          <div class="term" role="img" aria-label="Example promptsize output showing one prompt within budget and one over budget">
+            <div class="term-bar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="term-title">promptsize — budget check</span>
+            </div>
+            <div class="term-body">
+              <p class="cmd"><span class="muted">$</span> npx promptsize</p>
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-name">system prompt</span>
+                  <span class="entry-num ok">1.84K / 2K</span>
+                </div>
+                <div class="bar"><span class="bar-fill ok" style="width:73%"></span></div>
+                <p class="entry-status ok">✔ within budget <span class="muted">· +120 vs baseline</span></p>
+              </div>
+              <div class="entry">
+                <div class="entry-head">
+                  <span class="entry-name">few-shot examples</span>
+                  <span class="entry-num bad">9.2K / 8K</span>
+                </div>
+                <div class="bar"><span class="bar-fill bad" style="width:100%"></span></div>
+                <p class="entry-status bad">✘ over budget by 1.2K tokens</p>
+              </div>
+              <p class="summary bad">1 prompt over budget. <span class="muted">exit 1</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="block-head reveal">
+          <h2>Projects</h2>
+          <span class="idx">01 — open source</span>
+        </div>
+        <div class="grid">
+          {
+            projects.map((p) => (
+              <a class="card project reveal" href={p.href}>
+                <div class="card-top">
+                  <span class="card-name">{p.name}</span>
+                  <span class="badge">{p.tag}</span>
+                </div>
+                <p class="card-blurb">{p.blurb}</p>
+                <span class="card-cta">Read the docs →</span>
+              </a>
+            ))
+          }
+          <div class="card ghost reveal">
+            <span class="card-name muted">more soon</span>
+            <p class="card-blurb">
+              Each project here is small, focused, and meant to do one thing
+              well. Watch the <a href="https://github.com/abdulmunimjemal">GitHub profile</a> for what's next.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="block-head reveal">
+          <h2>How these are built</h2>
+          <span class="idx">02 — principles</span>
+        </div>
+        <div class="principles">
+          {
+            principles.map((pr) => (
+              <div class="principle reveal">
+                <span class="principle-n">{pr.n}</span>
+                <h3>{pr.title}</h3>
+                <p>{pr.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>© {year} Abdulmunim Jemal</span>
+      <span class="foot-links">
+        <a href="/promptsize/">Docs</a>
+        <a href="https://github.com/abdulmunimjemal">GitHub</a>
+        <span class="muted">oss.munim.io</span>
+      </span>
+    </footer>
+
+    <style is:global>
+      :root {
+        --bg: #0a0a0c;
+        --panel: #0f0f14;
+        --panel-2: #0d0d12;
+        --ink: #ecece6;
+        --muted: #8b8b95;
+        --line: rgba(255, 255, 255, 0.09);
+        --accent: #a78bfa;
+        --accent-hi: #c4b5fd;
+        --ok: #5eead4;
+        --bad: #fb7185;
+        --display: "Bricolage Grotesque Variable", ui-sans-serif, sans-serif;
+        --body: "Hanken Grotesk Variable", ui-sans-serif, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        overflow-x: hidden;
+      }
+
+      a { color: inherit; }
+
+      /* ---------- background ---------- */
+      .bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+      .bg-grid {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+      }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(640px 420px at 12% -6%, rgba(139,92,246,0.20), transparent 70%),
+          radial-gradient(560px 380px at 92% 8%, rgba(94,234,212,0.06), transparent 70%);
+      }
+
+      /* ---------- layout ---------- */
+      .nav, main, .foot {
+        max-width: 1080px;
+        margin-inline: auto;
+        padding-inline: 28px;
+      }
+
+      /* ---------- nav ---------- */
+      .nav {
+        display: flex; align-items: center; justify-content: space-between;
+        padding-top: 26px; padding-bottom: 26px;
+      }
+      .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+      .mark { width: 28px; height: 28px; }
+      .wordmark { font-family: var(--mono); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+      .slash { color: var(--accent); }
+      .links { display: flex; gap: 26px; font-family: var(--mono); font-size: 13.5px; }
+      .links a { color: var(--muted); text-decoration: none; transition: color .18s ease; }
+      .links a:hover { color: var(--ink); }
+
+      /* ---------- hero ---------- */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px; align-items: center;
+        padding: 64px 0 96px;
+      }
+      .kicker {
+        font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em;
+        color: var(--accent); margin: 0 0 22px; text-transform: lowercase;
+      }
+      h1 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: clamp(2.6rem, 5.4vw, 4.05rem);
+        line-height: 1.02; letter-spacing: -0.035em;
+        margin: 0 0 24px;
+      }
+      h1 .accent {
+        color: var(--accent);
+        background: linear-gradient(180deg, var(--accent-hi), var(--accent));
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .lede { font-size: 1.12rem; color: #c5c5cc; max-width: 30rem; margin: 0 0 34px; }
+      .lede strong { color: var(--ink); font-weight: 600; }
+
+      .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 9px;
+        padding: 12px 20px; border-radius: 10px;
+        font-family: var(--mono); font-size: 14px; font-weight: 500;
+        text-decoration: none; transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      }
+      .btn-primary { background: var(--accent); color: #15101f; font-weight: 600; }
+      .btn-primary:hover { transform: translateY(-2px); background: var(--accent-hi); }
+      .btn-primary .arr { transition: transform .18s ease; }
+      .btn-primary:hover .arr { transform: translateX(3px); }
+      .btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+      .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+      /* ---------- terminal ---------- */
+      .hero-term { perspective: 1200px; }
+      .term {
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 30px 80px -40px rgba(0,0,0,0.9), 0 0 0 1px rgba(167,139,250,0.04);
+      }
+      .term-bar {
+        display: flex; align-items: center; gap: 7px;
+        padding: 13px 16px; border-bottom: 1px solid var(--line);
+        background: rgba(255,255,255,0.015);
+      }
+      .dot { width: 11px; height: 11px; border-radius: 50%; background: #2c2c34; }
+      .dot:nth-child(1) { background: #3a2a3e; }
+      .term-title { margin-left: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+      .term-body { padding: 20px 18px 22px; font-family: var(--mono); font-size: 13px; }
+      .cmd { margin: 0 0 18px; color: #d6d6de; }
+      .cmd .muted { color: var(--accent); margin-right: 8px; }
+      .entry { margin-bottom: 18px; }
+      .entry-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+      .entry-name { color: var(--ink); }
+      .entry-num { font-size: 12px; }
+      .bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,0.07); overflow: hidden; }
+      .bar-fill { display: block; height: 100%; border-radius: 999px; }
+      .bar-fill.ok { background: linear-gradient(90deg, var(--accent), var(--accent-hi)); }
+      .bar-fill.bad { background: var(--bad); }
+      .entry-status { margin: 8px 0 0; font-size: 12.5px; }
+      .summary { margin: 6px 0 0; padding-top: 14px; border-top: 1px dashed var(--line); }
+      .ok { color: var(--ok); }
+      .bad { color: var(--bad); }
+      .muted { color: var(--muted); }
+
+      /* ---------- blocks ---------- */
+      .block { padding: 26px 0 30px; }
+      .block-head {
+        display: flex; align-items: baseline; justify-content: space-between;
+        margin-bottom: 26px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
+      }
+      .block-head h2 {
+        font-family: var(--display); font-weight: 600;
+        font-size: 1.7rem; letter-spacing: -0.02em; margin: 0;
+      }
+      .idx { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+
+      .grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 18px; }
+      .card {
+        display: block; text-decoration: none; color: inherit;
+        background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+        padding: 26px; transition: transform .2s ease, border-color .2s ease, background .2s ease;
+      }
+      .project:hover {
+        transform: translateY(-3px); border-color: rgba(167,139,250,0.5);
+        background: #121119;
+      }
+      .card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+      .card-name { font-family: var(--mono); font-size: 1.15rem; font-weight: 600; }
+      .badge {
+        font-family: var(--mono); font-size: 11px; color: var(--accent-hi);
+        border: 1px solid rgba(167,139,250,0.35); border-radius: 999px; padding: 2px 9px;
+      }
+      .card-blurb { color: #b9b9c2; margin: 0 0 18px; font-size: 0.98rem; }
+      .card-cta { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+      .ghost { border-style: dashed; background: transparent; }
+      .ghost .card-blurb a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(167,139,250,.4); }
+
+      /* ---------- principles ---------- */
+      .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .principle {
+        border: 1px solid var(--line); border-radius: 14px; padding: 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+      }
+      .principle-n { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+      .principle h3 {
+        font-family: var(--display); font-weight: 600; font-size: 1.15rem;
+        letter-spacing: -0.01em; margin: 10px 0 8px;
+      }
+      .principle p { color: var(--muted); margin: 0; font-size: 0.95rem; line-height: 1.55; }
+
+      /* ---------- footer ---------- */
+      .foot {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 70px; padding-top: 26px; padding-bottom: 60px;
+        border-top: 1px solid var(--line);
+        font-family: var(--mono); font-size: 13px; color: var(--muted);
+      }
+      .foot a { color: var(--muted); text-decoration: none; margin-right: 20px; transition: color .18s ease; }
+      .foot a:hover { color: var(--ink); }
+      .foot-links { display: flex; align-items: center; }
+
+      /* ---------- reveal animation ---------- */
+      .reveal { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+      .hero-copy .reveal:nth-child(1) { animation-delay: .05s; }
+      .hero-copy .reveal:nth-child(2) { animation-delay: .12s; }
+      .hero-copy .reveal:nth-child(3) { animation-delay: .19s; }
+      .hero-copy .reveal:nth-child(4) { animation-delay: .26s; }
+      .hero-term { animation-delay: .22s; }
+      .grid .reveal:nth-child(2) { animation-delay: .08s; }
+      .principles .reveal:nth-child(2) { animation-delay: .06s; }
+      .principles .reveal:nth-child(3) { animation-delay: .12s; }
+      .principles .reveal:nth-child(4) { animation-delay: .18s; }
+
+      @keyframes rise { to { opacity: 1; transform: none; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { animation: none; opacity: 1; transform: none; }
+        html { scroll-behavior: auto; }
+      }
+
+      /* ---------- responsive ---------- */
+      @media (max-width: 860px) {
+        .hero { grid-template-columns: 1fr; gap: 40px; padding: 40px 0 64px; }
+        .grid, .principles { grid-template-columns: 1fr; }
+        .links a:not(.ext) { display: none; }
+      }
+    </style>
+  </body>
+</html>
