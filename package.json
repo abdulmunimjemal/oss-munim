@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.39.2",
+    "@fontsource-variable/bricolage-grotesque": "^5.2.10",
+    "@fontsource-variable/hanken-grotesk": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
     "astro": "^6.4.2",
     "sharp": "^0.34.5"
   },
