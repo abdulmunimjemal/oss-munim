@@ -1,0 +1,59 @@
+---
+title: promptsize
+description: size-limit for LLM prompts — count prompt tokens, set budgets, and fail CI when a prompt grows past its limit.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**size-limit for your LLM prompts.** Count the tokens in your prompt and context
+files, set per-prompt budgets, and fail CI when one quietly grows past its limit.
+
+Prompts and context templates balloon over time — a few extra few-shot examples
+here, a longer system prompt there — until you blow a context window or your
+per-call cost in production. `promptsize` treats your prompts like a build
+artifact: it measures them on every PR and flags it when one crosses a line you set.
+
+```ansi
+  promptsize
+
+  agent system prompt
+  Limit:  1 K tokens
+  Size:   214 tokens  (o200k_base)
+  ✔ within budget  (+38 vs baseline)
+
+  few-shot examples
+  Limit:  8 K tokens
+  Size:   9.2 K tokens  (o200k_base)
+  ✘ over budget by 1.2 K tokens
+
+  1 prompt over budget.
+```
+
+<CardGrid>
+  <Card title="Offline & deterministic" icon="setting">
+    Token counts come from `gpt-tokenizer` — pure JS, no network, no API key.
+    Same input, same number, every time.
+  </Card>
+  <Card title="Multi-model" icon="puzzle">
+    Pick an encoding (`o200k_base`, `cl100k_base`) or a model name (`gpt-4o`,
+    `gpt-4`, `claude-*`, `gemini-*`). The encoding used is always printed.
+  </Card>
+  <Card title="Globs & grouping" icon="document">
+    Budget a single file or a whole directory of few-shot examples as one number.
+  </Card>
+  <Card title="Regression tracking" icon="bars">
+    Snapshot sizes to a committed baseline and see the delta on every run.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Quick start" href="/promptsize/quick-start/" description="From zero to a working budget check in four steps." />
+<LinkCard title="Why promptsize" href="/promptsize/why/" description="How it differs from a plain token counter." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/promptsize">github.com/abdulmunimjemal/promptsize</a>
+</p>
