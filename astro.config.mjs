@@ -47,6 +47,16 @@ export default defineConfig({
             { label: "Programmatic API", link: "/promptsize/api/" },
           ],
         },
+        {
+          label: "passmuster",
+          items: [
+            { label: "Introduction", link: "/passmuster/" },
+            { label: "Quick start", link: "/passmuster/quick-start/" },
+            { label: "Checks", link: "/passmuster/checks/" },
+            { label: "Retry with feedback", link: "/passmuster/retry-feedback/" },
+            { label: "API", link: "/passmuster/api/" },
+          ],
+        },
       ],
     }),
   ],

@@ -1,0 +1,58 @@
+---
+title: passmuster
+description: Make LLM output pass muster — a tiny, model-agnostic verify-and-retry loop with schema, predicate, and LLM-judge checks.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Make LLM output pass muster.** A tiny, model-agnostic verify-and-retry loop:
+`generate → check → retry with feedback` until the output passes — or you're out
+of attempts. Zero runtime dependencies.
+
+LLM output is often *almost* right — valid JSON but a missing field, a plausible
+answer that ignores the question, a plan with a `TODO` left in. `passmuster` lets
+you declare what "good" means as composable **checks** and makes the model keep
+trying — feeding each failure back so it can self-correct.
+
+```ansi
+  attempt 1: FAIL -> schema
+  attempt 2: FAIL -> no-todos, actionable
+  attempt 3: PASS
+
+  ok: true | usedAttempts: 3
+```
+
+<CardGrid>
+  <Card title="Schema checks" icon="approve-check">
+    Validate against any [Standard Schema](https://standardschema.dev) — Zod,
+    Valibot, ArkType. No schema library is bundled.
+  </Card>
+  <Card title="Predicate checks" icon="setting">
+    Any (async) function over the value. Return `true` to pass, or a reason to fail.
+  </Card>
+  <Card title="LLM-as-judge" icon="puzzle">
+    Grade the output with a model — "did this answer the question?" — bring your
+    own `complete` function.
+  </Card>
+  <Card title="Retry with feedback" icon="random">
+    Every failure is formatted and handed to the next attempt so the model can
+    fix exactly what was wrong.
+  </Card>
+</CardGrid>
+
+## How it pairs with promptsize
+
+`promptsize` measures your prompts at build time; `passmuster` verifies your
+model's *output* at runtime. Two halves of keeping an LLM app honest.
+
+## Next steps
+
+<LinkCard title="Quick start" href="/passmuster/quick-start/" description="Wire a generate function and a few checks." />
+<LinkCard title="Checks" href="/passmuster/checks/" description="schema, predicate, and LLM-judge checks in depth." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> · zero runtime deps · &nbsp;
+  <a href="https://github.com/abdulmunimjemal/passmuster">github.com/abdulmunimjemal/passmuster</a>
+</p>
