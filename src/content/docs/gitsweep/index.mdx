@@ -1,0 +1,59 @@
+---
+title: gitsweep
+description: Interactively delete stale local git branches — already merged, or whose upstream is gone — in one command.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Clean up stale local git branches in one command.** `gitsweep` finds local
+branches that are already merged or whose upstream is gone, shows you the list,
+and deletes them after your confirmation.
+
+Local branches pile up. You merge a PR, the remote branch gets deleted, but the
+local copy lingers. Multiply that by every feature you ship and `git branch`
+becomes a graveyard. `gitsweep` finds the dead branches and removes them —
+safely, and only after you say so. The **current branch** and the **default
+branch** are never touched.
+
+```ansi
+  Default branch: main · current: feature-y
+
+  Merged into default branch:
+    ✓ feature-x (merged)
+    ✓ hotfix-123 (merged)
+
+  Upstream gone:
+    ⚠ old-spike (upstream gone) — force delete
+
+  Delete 3 branch(es)? [y/N]
+```
+
+<CardGrid>
+  <Card title="Two kinds of stale" icon="git-pull-request">
+    Finds branches **merged** into the default branch and branches whose
+    upstream is **gone** (the `[origin/x: gone]` marker in `git branch -vv`).
+  </Card>
+  <Card title="Safe by default" icon="approve-check">
+    The current branch and the default branch are **never deleted**. Merged
+    branches use the safe `git branch -d`; force deletes are flagged clearly.
+  </Card>
+  <Card title="Confirm before deleting" icon="warning">
+    Branches are grouped and shown to you first. Nothing is removed until you
+    confirm — or pass `--dry-run` to change nothing at all.
+  </Card>
+  <Card title="No surprises" icon="setting">
+    Pure Node.js over `git`. Filter with `--merged` / `--gone`, override the
+    default branch with `--main`, or skip the prompt with `-y`.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Usage" href="/gitsweep/usage/" description="Install, flags, safety guarantees, exit codes, and examples." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/gitsweep">github.com/abdulmunimjemal/gitsweep</a>
+</p>

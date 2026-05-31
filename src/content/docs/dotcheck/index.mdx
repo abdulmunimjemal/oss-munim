@@ -1,0 +1,67 @@
+---
+title: dotcheck
+description: Validate your .env against an .env.example contract so missing, extra, or empty variables are caught — locally and in CI.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Validate your `.env` against a contract.** `dotcheck` compares your real
+`.env` file against a committed `.env.example` and flags the keys that have
+drifted — locally and in CI.
+
+The `.env.example` in your repo is supposed to document every variable the app
+needs. In practice it drifts: someone adds a variable to their local `.env` and
+forgets the example, or a teammate clones the repo, copies the example, and
+ships with a blank `API_KEY`. `dotcheck` turns that implicit contract into
+something you can actually enforce — it tells you what's **missing**, what's
+**extra**, and what's present but **empty**, and exits non-zero on problems so
+it drops straight into a pipeline as a gate.
+
+```ansi
+Missing (1)
+  • LOG_LEVEL
+
+Empty (1)
+  • API_KEY
+
+Extra (1)
+  • EXTRA_THING
+```
+
+On a clean run:
+
+```ansi
+All environment variables present.
+```
+
+<CardGrid>
+  <Card title="Zero config" icon="setting">
+    Auto-detects `.env` and `.env.example` in the current directory. Point at
+    other paths with `--env` and `--example` when you need to.
+  </Card>
+  <Card title="Three kinds of drift" icon="puzzle">
+    Catches keys the example expects but your `.env` is **missing**, keys your
+    `.env` defines that the example doesn't know about (**extra**), and required
+    keys that are present but **empty**.
+  </Card>
+  <Card title="CI-ready exit codes" icon="bars">
+    Exits `0` when clean, `1` on problems, `2` on a runtime error — a non-zero
+    exit fails the job with no extra wiring.
+  </Card>
+  <Card title="Library API included" icon="document">
+    Ships `parseEnv` and `compareEnv` alongside the CLI, with one tiny
+    dependency. Works with any dotenv-style project — not framework-specific.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Usage" href="/dotcheck/usage/" description="Install, flags, exit codes, and the library API." />
+<LinkCard title="CI" href="/dotcheck/ci/" description="Gate pull requests on a drifted env contract." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/dotcheck">github.com/abdulmunimjemal/dotcheck</a>
+</p>

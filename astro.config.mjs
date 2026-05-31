@@ -57,6 +57,38 @@ export default defineConfig({
             { label: "API", link: "/passmuster/api/" },
           ],
         },
+        {
+          label: "tokcost",
+          items: [
+            { label: "Introduction", link: "/tokcost/" },
+            { label: "Usage", link: "/tokcost/usage/" },
+            { label: "Library API", link: "/tokcost/api/" },
+          ],
+        },
+        {
+          label: "heyllm",
+          items: [
+            { label: "Introduction", link: "/heyllm/" },
+            { label: "Usage", link: "/heyllm/usage/" },
+            { label: "Configuration", link: "/heyllm/configuration/" },
+          ],
+        },
+        {
+          label: "dotcheck",
+          items: [
+            { label: "Introduction", link: "/dotcheck/" },
+            { label: "Usage", link: "/dotcheck/usage/" },
+            { label: "CI", link: "/dotcheck/ci/" },
+            { label: "API", link: "/dotcheck/api/" },
+          ],
+        },
+        {
+          label: "gitsweep",
+          items: [
+            { label: "Introduction", link: "/gitsweep/" },
+            { label: "Usage", link: "/gitsweep/usage/" },
+          ],
+        },
       ],
     }),
   ],

@@ -1,0 +1,56 @@
+---
+title: tokcost
+description: An instant, offline token + cost counter for LLM text — count tokens locally and estimate input cost, with no network and no API key.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**An instant, offline token + cost counter for LLM text.** Point it at a file,
+pipe text in, or pass a handful of files — `tokcost` counts the tokens locally
+and, on request, estimates what that input would cost.
+
+Token counts drive both your context budget and your bill, but they're easy to
+lose track of while iterating on a prompt. `tokcost` is a daily-use tool for
+anyone building with LLMs: a fast, deterministic counter that runs entirely on
+your machine — no network round-trip, no API key — and tells you exactly which
+encoding it used.
+
+```ansi
+$ tokcost --cost -m gpt-4o prompt.md
+
+  prompt.md   42 tokens
+
+  total       42 tokens  (o200k_base)
+  cost        $0.000105  (gpt-4o · $2.50 / 1M tokens)
+```
+
+<CardGrid>
+  <Card title="Offline & deterministic" icon="setting">
+    Token counts come from `gpt-tokenizer` — pure JS, no network, no API key.
+    Same input, same number, every time.
+  </Card>
+  <Card title="Files or stdin" icon="document">
+    Count a single file, pipe text in over stdin, or pass multiple files for
+    per-file counts plus a combined total.
+  </Card>
+  <Card title="Cost estimates" icon="approve-check">
+    The optional `--cost` flag estimates input dollars from a small built-in
+    pricing table for common models.
+  </Card>
+  <Card title="Library too" icon="puzzle">
+    Import `countTokens` and `estimateCost` into your own code — the CLI is a
+    thin wrapper over the same functions.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Usage" href="/tokcost/usage/" description="Install, count files, pipe stdin, and every flag." />
+<LinkCard title="Library API" href="/tokcost/api/" description="countTokens, estimateCost, and resolveEncoding." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/tokcost">github.com/abdulmunimjemal/tokcost</a>
+</p>

@@ -1,0 +1,54 @@
+---
+title: heyllm
+description: Talk to an LLM from your terminal — stream answers from any OpenAI-compatible Chat Completions API straight to stdout, and pipe stdin in as context.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Talk to an LLM from your terminal.** `heyllm` is a tiny, dependency-light CLI
+that streams answers from any OpenAI-compatible Chat Completions API straight to
+stdout — built for daily use and pipelines.
+
+You ask a question, you get an answer. No plugins, no config files, no chat
+history — just one command that pipes well. Because it reads piped input as
+context, it slots naturally into shell workflows: hand it a diff, a log, a file,
+and an instruction, and let the model do the rest.
+
+```console
+$ heyllm "explain monads simply"
+A monad is a way to wrap a value along with a recipe for chaining...
+
+$ git diff | heyllm "write a conventional commit message"
+feat(parser): handle SSE frames split across network chunks
+```
+
+<CardGrid>
+  <Card title="Pipes like a Unix tool" icon="seti:shell">
+    Reads piped stdin as context and prints the answer to stdout. The prompt is
+    the instruction; stdin is the material it works on.
+  </Card>
+  <Card title="Any OpenAI-compatible API" icon="puzzle">
+    Speaks the OpenAI Chat Completions wire format, so `--base-url` points it at
+    OpenAI, OpenRouter, a local Ollama, or anything else that implements it.
+  </Card>
+  <Card title="Streams by default" icon="rocket">
+    Tokens print as they arrive, parsed from server-sent events. Pass
+    `--no-stream` when you want the full response in one shot.
+  </Card>
+  <Card title="Tiny & auditable" icon="approve-check">
+    Dependency-light, no config files, no hidden state. A small binary that does
+    the obvious thing — and `--json` gives you the raw response for scripting.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Usage" href="/heyllm/usage/" description="Install, every flag, exit codes, and worked examples." />
+<LinkCard title="Configuration" href="/heyllm/configuration/" description="API keys, OpenAI-compatible providers, and model selection." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/heyllm">github.com/abdulmunimjemal/heyllm</a>
+</p>
