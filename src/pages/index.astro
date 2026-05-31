@@ -21,6 +21,38 @@ const projects = [
       "Make LLM output pass muster. A tiny verify-and-retry loop: generate → check (schema / predicate / LLM-judge) → retry with feedback until it passes.",
     href: "/passmuster/",
   },
+  {
+    name: "tok",
+    tag: "v0.1.0",
+    blurb:
+      "Instant, offline token + cost counter for LLM text. cat a file or pipe stdin and get the count — plus a cost estimate across models.",
+    href: "https://github.com/abdulmunimjemal/tok",
+    external: true,
+  },
+  {
+    name: "ask",
+    tag: "v0.1.0",
+    blurb:
+      "Talk to an LLM from your terminal. Pipe context in — git diff | ask \"write a commit message\" — over any OpenAI-compatible API.",
+    href: "https://github.com/abdulmunimjemal/ask",
+    external: true,
+  },
+  {
+    name: "envcheck",
+    tag: "v0.1.0",
+    blurb:
+      "Validate your .env against an .env.example contract — flags missing, extra, and empty keys. Runs locally and as a CI gate.",
+    href: "https://github.com/abdulmunimjemal/envcheck",
+    external: true,
+  },
+  {
+    name: "gitsweep",
+    tag: "v0.1.0",
+    blurb:
+      "Interactively sweep stale local git branches — the ones already merged or whose remote is gone. Daily git hygiene, solved.",
+    href: "https://github.com/abdulmunimjemal/gitsweep",
+    external: true,
+  },
 ];
 
 const principles = [
@@ -151,23 +183,20 @@ const principles = [
         <div class="grid">
           {
             projects.map((p) => (
-              <a class="card project reveal" href={p.href}>
+              <a
+                class="card project reveal"
+                href={p.href}
+                {...(p.external ? { target: "_blank", rel: "noopener" } : {})}
+              >
                 <div class="card-top">
                   <span class="card-name">{p.name}</span>
                   <span class="badge">{p.tag}</span>
                 </div>
                 <p class="card-blurb">{p.blurb}</p>
-                <span class="card-cta">Read the docs →</span>
+                <span class="card-cta">{p.external ? "View on GitHub ↗" : "Read the docs →"}</span>
               </a>
             ))
           }
-          <div class="card ghost reveal">
-            <span class="card-name muted">more soon</span>
-            <p class="card-blurb">
-              Each project here is small, focused, and meant to do one thing
-              well. Watch the <a href="https://github.com/abdulmunimjemal">GitHub profile</a> for what's next.
-            </p>
-          </div>
         </div>
       </section>
 
