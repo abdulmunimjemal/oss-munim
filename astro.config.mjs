@@ -23,7 +23,7 @@ export default defineConfig({
         },
       ],
       editLink: {
-        baseUrl: "https://github.com/abdulmunimjemal/oss/edit/main/",
+        baseUrl: "https://github.com/abdulmunimjemal/oss-munim/edit/main/",
       },
       customCss: [
         "@fontsource-variable/bricolage-grotesque",
