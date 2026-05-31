@@ -14,6 +14,13 @@ const projects = [
       "size-limit for LLM prompts. Count the tokens in your prompt and context files, set budgets, and fail CI when one grows past its limit.",
     href: "/promptsize/",
   },
+  {
+    name: "passmuster",
+    tag: "v0.1.0",
+    blurb:
+      "Make LLM output pass muster. A tiny verify-and-retry loop: generate → check (schema / predicate / LLM-judge) → retry with feedback until it passes.",
+    href: "/passmuster/",
+  },
 ];
 
 const principles = [
@@ -92,9 +99,9 @@ const principles = [
             <span class="accent">building with LLMs.</span>
           </h1>
           <p class="lede reveal">
-            Focused, well-tested, CI-native libraries — each does exactly one
-            thing well. First up: <strong>promptsize</strong>, a size-limit for
-            your prompts.
+            Focused, well-tested libraries that each do one thing well — from
+            <strong>prompt budgets</strong> to model output that
+            <strong>passes muster</strong>.
           </p>
           <div class="actions reveal">
             <a class="btn btn-primary" href="/promptsize/">
@@ -350,9 +357,10 @@ const principles = [
       }
       .idx { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
 
-      .grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 18px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+      @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
       .card {
-        display: block; text-decoration: none; color: inherit;
+        display: flex; flex-direction: column; text-decoration: none; color: inherit;
         background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
         padding: 26px; transition: transform .2s ease, border-color .2s ease, background .2s ease;
       }
@@ -367,7 +375,8 @@ const principles = [
         border: 1px solid rgba(167,139,250,0.35); border-radius: 999px; padding: 2px 9px;
       }
       .card-blurb { color: #b9b9c2; margin: 0 0 18px; font-size: 0.98rem; }
-      .card-cta { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+      .card-cta { font-family: var(--mono); font-size: 13px; color: var(--accent); margin-top: auto; }
+      .project:hover .card-cta { text-decoration: underline; text-underline-offset: 3px; }
       .ghost { border-style: dashed; background: transparent; }
       .ghost .card-blurb a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(167,139,250,.4); }
 
