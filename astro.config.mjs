@@ -34,6 +34,23 @@ export default defineConfig({
         "./src/styles/theme.css",
       ],
       lastUpdated: true,
+      expressiveCode: {
+        // Render terminal-output samples (ansi/console) as realistic terminal
+        // windows — macOS title bar + traffic-light dots. Shell blocks already
+        // get a terminal frame by default.
+        defaultProps: {
+          overridesByLang: {
+            "ansi,console,shellsession,shell-session,output": {
+              frame: "terminal",
+            },
+          },
+        },
+        styles: {
+          frames: {
+            frameBoxShadowCssValue: "0 16px 40px -22px rgba(0, 0, 0, 0.8)",
+          },
+        },
+      },
       sidebar: [
         {
           label: "promptsize",
