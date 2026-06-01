@@ -2,6 +2,27 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+// Append a "View on GitHub" link to every tool's sidebar group, so each page
+// links to that tool's repo (the global nav icon only points at the profile).
+// The group label is the repo name (github.com/abdulmunimjemal/<label>).
+function withRepoLinks(groups) {
+  return groups.map((group) =>
+    "items" in group
+      ? {
+          ...group,
+          items: [
+            ...group.items,
+            {
+              label: "View on GitHub ↗",
+              link: `https://github.com/abdulmunimjemal/${group.label}`,
+              attrs: { target: "_blank", rel: "noopener" },
+            },
+          ],
+        }
+      : group,
+  );
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://oss.munim.io",
@@ -51,7 +72,7 @@ export default defineConfig({
           },
         },
       },
-      sidebar: [
+      sidebar: withRepoLinks([
         {
           label: "codescope",
           items: [
@@ -156,7 +177,7 @@ export default defineConfig({
             { label: "Programmatic API", link: "/shipcard/api/" },
           ],
         },
-      ],
+      ]),
     }),
   ],
 });
