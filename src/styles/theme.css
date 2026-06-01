@@ -64,3 +64,47 @@ h1#_top,
 :root {
   --sl-nav-pad-y: 0.85rem;
 }
+
+/* Borderless feature rows (used on the codescope intro) — icon tile + title +
+   description, separated by hairlines instead of boxes. */
+.cs-features {
+  margin: 1.75rem 0 0.5rem;
+}
+.cs-feature {
+  display: flex;
+  gap: 1.05rem;
+  align-items: flex-start;
+  padding: 1.3rem 0;
+}
+.cs-feature + .cs-feature {
+  border-top: 1px solid var(--sl-color-hairline-light);
+}
+.cs-feature__icon {
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.7rem;
+  margin-top: 0.15rem;
+}
+.cs-feature__icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.cs-feature__title {
+  margin: 0.1rem 0 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--sl-color-white);
+}
+.cs-feature__body p {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  max-width: 52ch;
+}
+.cs-ico--violet { background: rgba(139, 92, 246, 0.16); color: #b69bff; box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.32); }
+.cs-ico--gold   { background: rgba(206, 146, 23, 0.16); color: #e6ad3f; box-shadow: inset 0 0 0 1px rgba(206, 146, 23, 0.32); }
+.cs-ico--green  { background: rgba(34, 197, 94, 0.15);  color: #5fd98a; box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.30); }
+.cs-ico--pink   { background: rgba(236, 72, 153, 0.16); color: #f47fc0; box-shadow: inset 0 0 0 1px rgba(236, 72, 153, 0.32); }

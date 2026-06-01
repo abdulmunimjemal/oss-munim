@@ -3,7 +3,7 @@ title: codescope
 description: Local-first codebase knowledge-graph MCP server. Parses your repo into a symbol graph and serves it to AI coding agents so they stop wasting tokens re-scanning files.
 ---
 
-import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+import { Icon, LinkCard, Badge } from '@astrojs/starlight/components';
 
 **A codebase knowledge graph for your AI agent.** codescope indexes your repo
 into a local SQLite symbol graph and serves it over MCP — so Claude Code, Cursor,
@@ -31,24 +31,36 @@ the agent the *answer* — not a pile of file contents.
   3 test file(s) affected: test/store.test.ts, test/mcp.test.ts, test/indexer.test.ts
 ```
 
-<CardGrid>
-  <Card title="100% local" icon="setting">
-    tree-sitter + SQLite. No API key, no network, no telemetry. Your code never
-    leaves the machine.
-  </Card>
-  <Card title="Watch-first" icon="random">
-    A file watcher re-indexes each file on save in ~0.5&nbsp;ms, so the agent
-    always queries current code — never a stale snapshot.
-  </Card>
-  <Card title="21 languages" icon="puzzle">
-    TypeScript, JS, TSX, Python, Go, Rust, Java, Ruby, C, C++, C#, PHP, Scala,
-    Solidity, Zig, Kotlin, Objective-C, Lua, Bash, OCaml, ReScript.
-  </Card>
-  <Card title="Faster & leaner than the incumbent" icon="rocket">
-    Measured vs codegraph: 3.5–7.6× faster indexing, 3–5× smaller index, fewer
-    tokens per answer, and higher caller accuracy. See Benchmarks.
-  </Card>
-</CardGrid>
+<div class="cs-features">
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--gold"><Icon name="setting" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">100% local</p>
+      <p>tree-sitter + SQLite. No API key, no network, no telemetry. Your code never leaves the machine.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--violet"><Icon name="random" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Watch-first</p>
+      <p>A file watcher re-indexes each file on save in ~0.5&nbsp;ms, so the agent always queries current code — never a stale snapshot.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--green"><Icon name="puzzle" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">21 languages</p>
+      <p>TypeScript, JS, TSX, Python, Go, Rust, Java, Ruby, C, C++, C#, PHP, Scala, Solidity, Zig, Kotlin, Objective-C, Lua, Bash, OCaml, ReScript.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--pink"><Icon name="rocket" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Faster &amp; leaner than the incumbent</p>
+      <p>Measured vs codegraph: 3.5–7.6× faster indexing, 3–5× smaller index, fewer tokens per answer, and higher caller accuracy. <a href="/codescope/benchmarks/">See benchmarks</a>.</p>
+    </div>
+  </div>
+</div>
 
 ## Install in one command
 
