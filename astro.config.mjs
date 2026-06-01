@@ -53,6 +53,19 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: "codescope",
+          items: [
+            { label: "Introduction", link: "/codescope/" },
+            { label: "Quick start", link: "/codescope/quick-start/" },
+            { label: "MCP tools", link: "/codescope/mcp-tools/" },
+            { label: "CLI", link: "/codescope/cli/" },
+            { label: "Languages", link: "/codescope/languages/" },
+            { label: "How it works", link: "/codescope/how-it-works/" },
+            { label: "Benchmarks", link: "/codescope/benchmarks/" },
+            { label: "Programmatic API", link: "/codescope/api/" },
+          ],
+        },
+        {
           label: "promptsize",
           items: [
             { label: "Introduction", link: "/promptsize/" },

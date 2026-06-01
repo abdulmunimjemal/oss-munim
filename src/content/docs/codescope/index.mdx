@@ -1,0 +1,74 @@
+---
+title: codescope
+description: Local-first codebase knowledge-graph MCP server. Parses your repo into a symbol graph and serves it to AI coding agents so they stop wasting tokens re-scanning files.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**A codebase knowledge graph for your AI agent.** codescope indexes your repo
+into a local SQLite symbol graph and serves it over MCP — so Claude Code, Cursor,
+and Codex can answer "where is `X`, who calls it, what's in this file" in a few
+tokens and one tool call, instead of `grep`-ing and reading whole files.
+
+Coding agents burn tokens and tool calls re-discovering your code on every
+session. codescope does the discovery once, keeps it fresh as you type, and hands
+the agent the *answer* — not a pile of file contents.
+
+```ansi
+  codescope
+
+  ✓ indexed 262 files · 1,956 symbols · 23,881 refs  in 670ms
+  ↻ watching for changes
+
+  > search loadConfig
+  function export loadConfig — src/config.ts:12  ·  function loadConfig(): Config
+
+  > callers handleRequest
+  src/server.ts:88   route
+  src/worker.ts:41   processJob
+
+  > affected src/store.ts
+  3 test file(s) affected: test/store.test.ts, test/mcp.test.ts, test/indexer.test.ts
+```
+
+<CardGrid>
+  <Card title="100% local" icon="setting">
+    tree-sitter + SQLite. No API key, no network, no telemetry. Your code never
+    leaves the machine.
+  </Card>
+  <Card title="Watch-first" icon="random">
+    A file watcher re-indexes each file on save in ~0.5&nbsp;ms, so the agent
+    always queries current code — never a stale snapshot.
+  </Card>
+  <Card title="21 languages" icon="puzzle">
+    TypeScript, JS, TSX, Python, Go, Rust, Java, Ruby, C, C++, C#, PHP, Scala,
+    Solidity, Zig, Kotlin, Objective-C, Lua, Bash, OCaml, ReScript.
+  </Card>
+  <Card title="Faster & leaner than the incumbent" icon="rocket">
+    Measured vs codegraph: 3.5–7.6× faster indexing, 3–5× smaller index, fewer
+    tokens per answer, and higher caller accuracy. See Benchmarks.
+  </Card>
+</CardGrid>
+
+## Install in one command
+
+```bash
+npx @abdulmunimjemal/codescope install
+```
+
+This wires codescope into Claude Code and Cursor automatically. Restart your
+agent and it can query your codebase graph.
+
+## Next steps
+
+<LinkCard title="Quick start" href="/codescope/quick-start/" description="Index a repo and wire it into your agent in two minutes." />
+<LinkCard title="MCP tools" href="/codescope/mcp-tools/" description="The seven graph tools your agent gets, and when each is used." />
+<LinkCard title="Benchmarks" href="/codescope/benchmarks/" description="Measured head-to-head vs codegraph — speed, size, tokens, and accuracy." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <Badge text="MCP server" variant="tip" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/codescope">github.com/abdulmunimjemal/codescope</a>
+</p>
