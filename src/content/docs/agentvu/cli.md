@@ -1,18 +1,18 @@
 ---
 title: CLI
-description: The agentwatch command — arguments, the --follow live view, --json output, exit codes, and examples.
+description: The agentvu command — arguments, the --follow live view, --json output, exit codes, and examples.
 ---
 
-The `agentwatch` CLI is the **read side** of agentwatch: it takes a recorded
+The `agentvu` CLI is the **read side** of agentvu: it takes a recorded
 session file and renders it as a dashboard. Give it a `.jsonl` file and it
 prints a header of aggregate stats followed by a timeline of every event.
 
 ```bash
-agentwatch <session.jsonl> [options]
+agentvu <session.jsonl> [options]
 ```
 
 The session file is a positional argument. Record one with the
-[library](/agentwatch/recording/), or try the bundled `examples/session.jsonl`.
+[library](/agentvu/recording/), or try the bundled `examples/session.jsonl`.
 
 ## Options
 
@@ -25,14 +25,14 @@ The session file is a positional argument. Record one with the
 
 ## The dashboard
 
-With no flags, agentwatch reads the file, renders the dashboard once, and exits:
+With no flags, agentvu reads the file, renders the dashboard once, and exits:
 
 ```bash
-agentwatch session.jsonl
+agentvu session.jsonl
 ```
 
 ```ansi
-agentwatch session.jsonl
+agentvu session.jsonl
 steps 3  tools getWeather,getForecast  tokens 1996  cost $0.02  dur 3.0s
 
 ▍ user What's the weather in Tokyo and should I bring an umbrella?
@@ -62,11 +62,11 @@ truncated so the timeline stays readable.
 
 ## Live view (`--follow`)
 
-This is the live demo. Point agentwatch at the file your agent is writing and
+This is the live demo. Point agentvu at the file your agent is writing and
 watch it think in real time:
 
 ```bash
-agentwatch session.jsonl --follow
+agentvu session.jsonl --follow
 ```
 
 It tails the file and re-renders the dashboard every time a new event is
@@ -82,7 +82,7 @@ The typical workflow is two terminals:
 node my-agent.js
 
 # terminal 2 — watch it live
-agentwatch session.jsonl --follow
+agentvu session.jsonl --follow
 ```
 
 ## JSON output (`--json`)
@@ -91,7 +91,7 @@ For piping into other tools, `--json` prints the parsed events alongside a
 computed summary instead of rendering the dashboard:
 
 ```bash
-agentwatch session.jsonl --json
+agentvu session.jsonl --json
 ```
 
 ```json
@@ -114,7 +114,7 @@ agentwatch session.jsonl --json
 ```
 
 The `summary` object is the same `SessionSummary` shape the dashboard header is
-built from — see the [API](/agentwatch/api/) for every field.
+built from — see the [API](/agentvu/api/) for every field.
 
 ## Exit codes
 
@@ -123,7 +123,7 @@ built from — see the [API](/agentwatch/api/) for every field.
 | `0` | Success — dashboard rendered, or `--json`/`--help`/`--version` printed. |
 | `2` | Error — no file argument given, the file doesn't exist or isn't a regular file, or the arguments couldn't be parsed. |
 
-On error, agentwatch writes a message to stderr (prefixed `agentwatch:`) and,
+On error, agentvu writes a message to stderr (prefixed `agentvu:`) and,
 when the file argument is missing, prints the help text.
 
 ## Examples
@@ -131,24 +131,24 @@ when the file argument is missing, prints the help text.
 Render the bundled example session:
 
 ```bash
-agentwatch examples/session.jsonl
+agentvu examples/session.jsonl
 ```
 
 Follow a session live as your agent writes it:
 
 ```bash
-agentwatch session.jsonl --follow
+agentvu session.jsonl --follow
 ```
 
 Get machine-readable output for a custom report:
 
 ```bash
-agentwatch session.jsonl --json > run-summary.json
+agentvu session.jsonl --json > run-summary.json
 ```
 
 Print the help or the version:
 
 ```bash
-agentwatch --help
-agentwatch --version
+agentvu --help
+agentvu --version
 ```

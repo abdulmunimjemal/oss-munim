@@ -1,35 +1,35 @@
 ---
 title: CLI
-description: The dotcheck command — install, flags, exit codes, and examples.
+description: The envvet command — install, flags, exit codes, and examples.
 ---
 
 ```bash
-dotcheck [options]
+envvet [options]
 ```
 
-Run with no arguments, `dotcheck` auto-detects `.env` and `.env.example` in the
+Run with no arguments, `envvet` auto-detects `.env` and `.env.example` in the
 current directory, compares them, prints a report, and exits non-zero if
 anything has drifted.
 
 ## Install
 
-Add `dotcheck` as a dev dependency:
+Add `envvet` as a dev dependency:
 
 ```bash
-npm install --save-dev dotcheck
-# or: pnpm add -D dotcheck  ·  yarn add -D dotcheck
+npm install --save-dev envvet
+# or: pnpm add -D envvet  ·  yarn add -D envvet
 ```
 
 Install it globally to run it anywhere:
 
 ```bash
-npm install -g dotcheck
+npm install -g envvet
 ```
 
 Or run it without installing:
 
 ```bash
-npx dotcheck
+npx envvet
 ```
 
 ## Run it
@@ -37,7 +37,7 @@ npx dotcheck
 From a project root containing `.env` and `.env.example`:
 
 ```bash
-dotcheck
+envvet
 ```
 
 ```ansi
@@ -79,7 +79,7 @@ All environment variables present.
 A missing `.env` is **not** a runtime error — every key is simply reported as
 missing, and the command exits `1`. Only an unreadable **example** file (it's
 the contract; without it there's nothing to check against) produces exit code
-`2`. An unknown flag also exits `2`. These codes make `dotcheck` a drop-in CI
+`2`. An unknown flag also exits `2`. These codes make `envvet` a drop-in CI
 step: a non-zero exit fails the job.
 
 ## Examples
@@ -87,19 +87,19 @@ step: a non-zero exit fails the job.
 Check non-standard paths:
 
 ```bash
-dotcheck --env config/.env.local --example config/.env.example
+envvet --env config/.env.local --example config/.env.example
 ```
 
 Allow extra keys in `.env` (only fail on missing or empty):
 
 ```bash
-dotcheck --allow-extra
+envvet --allow-extra
 ```
 
 Machine-readable output for custom tooling:
 
 ```bash
-dotcheck --json
+envvet --json
 ```
 
 ```json
@@ -112,12 +112,12 @@ dotcheck --json
 ```
 
 The JSON object is the same `CompareResult` returned by the
-[library API](/dotcheck/api/), so the CLI and the library report drift
+[library API](/envvet/api/), so the CLI and the library report drift
 identically. `--json` always exits with the normal exit code (`0` / `1`), so you
 can both branch on the output and rely on the status.
 
 ## Library API
 
-`dotcheck` ships a small library alongside the CLI, so you can wire env
+`envvet` ships a small library alongside the CLI, so you can wire env
 validation into your own scripts and tooling. See the
-[API reference](/dotcheck/api/) for `parseEnv`, `compareEnv`, and their types.
+[API reference](/envvet/api/) for `parseEnv`, `compareEnv`, and their types.

@@ -3,7 +3,7 @@ title: Customization
 description: Themes and sizes, the built-in language color map, and the optional bring-your-own-key AI summary.
 ---
 
-A `shipcard` card is shaped by three things: the **theme** (its color scheme),
+A `shiptag` card is shaped by three things: the **theme** (its color scheme),
 the **size** (its dimensions), and the **language colors** in the bar. There's
 no config file — everything is a flag or a built-in default.
 
@@ -12,8 +12,8 @@ no config file — everything is a flag or a built-in default.
 Two themes ship in the box, selected with `--theme`:
 
 ```bash
-shipcard owner/repo --theme dark    # default
-shipcard owner/repo --theme light
+shiptag owner/repo --theme dark    # default
+shiptag owner/repo --theme light
 ```
 
 Each theme is a fixed palette tuned to match GitHub's own UI colors:
@@ -39,8 +39,8 @@ along the top edge.
 | `card` | 800 × 320 | A compact banner for a README header or a tighter layout. |
 
 ```bash
-shipcard owner/repo --size og      # default, social
-shipcard owner/repo --size card    # compact
+shiptag owner/repo --size og      # default, social
+shiptag owner/repo --size card    # compact
 ```
 
 The `card` size scales every element (padding, font sizes, the language bar)
@@ -84,7 +84,7 @@ grey (`#8b949e`) so the card always renders sensibly.
 
 The full map (and the neutral fallback) is exported as `LANGUAGE_COLORS`,
 `NEUTRAL_COLOR`, and `colorForLanguage()` — see the
-[Programmatic API](/shipcard/api/#color-helpers) if you want to reuse or extend
+[Programmatic API](/shiptag/api/#color-helpers) if you want to reuse or extend
 it.
 
 ### How languages are measured
@@ -102,7 +102,7 @@ two modes produce visually consistent bars.
 ## Optional: AI summary
 
 By default the card uses the repository's own description and makes **no**
-network calls beyond fetching repo metadata. With `--summary`, shipcard instead
+network calls beyond fetching repo metadata. With `--summary`, shiptag instead
 asks an OpenAI-compatible chat-completions endpoint for a single punchy line
 (max ~80 characters) describing the repo, and uses that as the card's
 description.
@@ -111,7 +111,7 @@ It's strictly bring-your-own-key: the request only happens when you pass
 `--summary`, and it needs `OPENAI_API_KEY`.
 
 ```bash
-OPENAI_API_KEY=sk-xxx shipcard abdulmunimjemal/shipcard --summary -o card.svg
+OPENAI_API_KEY=sk-xxx shiptag abdulmunimjemal/shiptag --summary -o card.svg
 ```
 
 ### Point it at any compatible API
@@ -121,11 +121,11 @@ The endpoint defaults to OpenAI (`https://api.openai.com/v1`) with the
 a self-hosted proxy, Azure OpenAI, or a local server:
 
 ```bash
-shipcard owner/repo --summary --base-url https://my-gateway.example/v1 -o card.svg
+shiptag owner/repo --summary --base-url https://my-gateway.example/v1 -o card.svg
 ```
 
-If no key is set, or the request fails, shipcard exits `1` with an error rather
+If no key is set, or the request fails, shiptag exits `1` with an error rather
 than silently falling back — so a broken summary never produces a misleading
 card. (The library function `generateSummary` also lets you override the
 `model` and `apiKey` directly; see the
-[Programmatic API](/shipcard/api/#generatesummarydata-options).)
+[Programmatic API](/shiptag/api/#generatesummarydata-options).)

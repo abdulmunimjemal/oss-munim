@@ -3,7 +3,7 @@ title: Quick start
 description: From install to a recorded and visualized agent run in a few steps.
 ---
 
-agentwatch has two halves: a **library** that records your agent's run to a
+agentvu has two halves: a **library** that records your agent's run to a
 JSONL file, and a **CLI** that visualizes that file as a dashboard. This guide
 takes you through both.
 
@@ -11,26 +11,26 @@ takes you through both.
 
 ```bash
 # the CLI, globally
-npm install -g agentwatch
+npm install -g agentvu
 
 # or as a project dependency / library
-pnpm add agentwatch
-# npm install agentwatch · yarn add agentwatch
+pnpm add agentvu
+# npm install agentvu · yarn add agentvu
 ```
 
 Requires Node.js ≥ 18.
 
 ## 2. Visualize the bundled example
 
-You don't need an agent to see what agentwatch does. Point it at the example
+You don't need an agent to see what agentvu does. Point it at the example
 session that ships with the repo:
 
 ```bash
-agentwatch examples/session.jsonl
+agentvu examples/session.jsonl
 ```
 
 ```ansi
-agentwatch session.jsonl
+agentvu session.jsonl
 steps 3  tools getWeather,getForecast  tokens 1996  cost $0.02  dur 3.0s
 
 ▍ user What's the weather in Tokyo and should I bring an umbrella?
@@ -48,13 +48,13 @@ order it happened.
 
 ### The 1-line Vercel AI SDK integration
 
-If you use the [Vercel AI SDK](https://sdk.vercel.dev/), wiring in agentwatch is
+If you use the [Vercel AI SDK](https://sdk.vercel.dev/), wiring in agentvu is
 a single line. Create a recorder pointed at an output file, then hand each step
 to `recordStep` from the SDK's `onStepFinish` callback:
 
 ```ts
 import { generateText } from "ai";
-import { createRecorder, recordStep } from "agentwatch";
+import { createRecorder, recordStep } from "agentvu";
 
 const rec = createRecorder({ out: "session.jsonl" });
 
@@ -69,10 +69,10 @@ await generateText({
 rec.close();
 ```
 
-`recordStep` translates each AI SDK step into agentwatch events — assistant
+`recordStep` translates each AI SDK step into agentvu events — assistant
 text, tool calls, tool results, and usage — and appends them to
 `session.jsonl`. It only depends on the *shape* of the step object, so
-agentwatch never imports the `ai` package and stays dependency-light.
+agentvu never imports the `ai` package and stays dependency-light.
 
 ### Or write events by hand
 
@@ -80,7 +80,7 @@ Not on the AI SDK? Record events directly. Each recorder method writes one
 JSONL line:
 
 ```ts
-import { createRecorder } from "agentwatch";
+import { createRecorder } from "agentvu";
 
 const rec = createRecorder({ out: "session.jsonl" });
 
@@ -102,15 +102,15 @@ In one terminal, run your agent (writing to `session.jsonl`). In another, follow
 the file:
 
 ```bash
-agentwatch session.jsonl --follow
+agentvu session.jsonl --follow
 ```
 
-agentwatch tails the file and re-renders the dashboard every time a new event is
+agentvu tails the file and re-renders the dashboard every time a new event is
 appended — so you watch the agent think in real time. Press `Ctrl+C` to stop.
 
 ## What next?
 
-- [Recording](/agentwatch/recording/) — the full event model, every recorder
+- [Recording](/agentvu/recording/) — the full event model, every recorder
   method, the AI SDK adapter, and cost estimation.
-- [CLI](/agentwatch/cli/) — every flag, exit codes, and `--json` output.
-- [API](/agentwatch/api/) — the complete exported library surface.
+- [CLI](/agentvu/cli/) — every flag, exit codes, and `--json` output.
+- [API](/agentvu/api/) — the complete exported library surface.

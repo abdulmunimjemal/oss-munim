@@ -1,26 +1,26 @@
 ---
 title: CLI
-description: The gitsweep command — every flag, exit codes, and copy-paste examples.
+description: The gitbroom command — every flag, exit codes, and copy-paste examples.
 ---
 
 ```bash
-gitsweep [options]
+gitbroom [options]
 ```
 
-Run with no arguments, `gitsweep` finds the stale branches in the current
+Run with no arguments, `gitbroom` finds the stale branches in the current
 repository, groups and prints them, asks you to confirm, and then deletes them.
 The current branch and the default branch are never candidates — see
-[How it works](/gitsweep/how-it-works/).
+[How it works](/gitbroom/how-it-works/).
 
 ## Install
 
 ```bash
 # one-off, no install
-npx gitsweep
+npx gitbroom
 
 # or install globally
-npm i -g gitsweep
-# or: pnpm add -g gitsweep
+npm i -g gitbroom
+# or: pnpm add -g gitbroom
 ```
 
 Requires Node.js ≥ 18 and `git` on your `PATH`.
@@ -49,7 +49,7 @@ branch. The recommended first run.
 ### `-y`, `--yes`
 
 Skips the `[y/N]` confirmation and deletes the candidates immediately. Useful in
-scripts and CI. All [safety guarantees](/gitsweep/how-it-works/#safety-guarantees)
+scripts and CI. All [safety guarantees](/gitbroom/how-it-works/#safety-guarantees)
 still apply — the current and default branches are never deleted, and merged
 branches still use the safe `-d`.
 
@@ -62,7 +62,7 @@ happens to also be merged.
 
 ### `--main <branch>`
 
-Override the [default-branch detection](/gitsweep/how-it-works/#finding-the-default-branch)
+Override the [default-branch detection](/gitbroom/how-it-works/#finding-the-default-branch)
 when your trunk isn't `main`/`master` or detection guesses wrong. The named
 branch becomes both the merge target and an excluded candidate.
 
@@ -82,30 +82,30 @@ branches could not be removed.
 Preview what would be swept without changing anything:
 
 ```bash
-gitsweep --dry-run
+gitbroom --dry-run
 ```
 
 Sweep only branches whose remote is gone, after pruning stale remotes:
 
 ```bash
 git fetch --prune
-gitsweep --gone
+gitbroom --gone
 ```
 
 Clean up merged branches non-interactively (handy in scripts):
 
 ```bash
-gitsweep --merged -y
+gitbroom --merged -y
 ```
 
 Work against a repo whose default branch is `develop`, previewing first:
 
 ```bash
-gitsweep --main develop --dry-run
+gitbroom --main develop --dry-run
 ```
 
 Check the installed version:
 
 ```bash
-gitsweep --version
+gitbroom --version
 ```

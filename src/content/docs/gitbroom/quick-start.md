@@ -5,28 +5,28 @@ description: From a cluttered branch list to a clean one — install, dry-run, t
 
 ## 1. Run it
 
-You don't have to install anything to try `gitsweep` — run it straight from
+You don't have to install anything to try `gitbroom` — run it straight from
 `npx` inside any repository:
 
 ```bash
-npx gitsweep
+npx gitbroom
 ```
 
 Requires Node.js ≥ 18 and `git` on your `PATH`. To keep it around, install
 globally instead:
 
 ```bash
-npm i -g gitsweep
-# or: pnpm add -g gitsweep
+npm i -g gitbroom
+# or: pnpm add -g gitbroom
 ```
 
 ## 2. Preview with a dry run
 
-Before deleting anything, see exactly what `gitsweep` would remove. A dry run
+Before deleting anything, see exactly what `gitbroom` would remove. A dry run
 changes nothing — it's the recommended first run:
 
 ```bash
-gitsweep --dry-run
+gitbroom --dry-run
 ```
 
 ```ansi
@@ -44,7 +44,7 @@ gitsweep --dry-run
 
 Candidates are grouped by **why** they're stale. A `force delete` label means
 the branch isn't merged and would need `git branch -D` — see
-[How it works](/gitsweep/how-it-works/) for what that means.
+[How it works](/gitbroom/how-it-works/) for what that means.
 
 :::tip[Prune first for accurate "gone" detection]
 Gone-branch detection reflects what your local repo already knows. Run
@@ -52,17 +52,17 @@ Gone-branch detection reflects what your local repo already knows. Run
 `gone`:
 
 ```bash
-git fetch --prune && gitsweep --dry-run
+git fetch --prune && gitbroom --dry-run
 ```
 :::
 
 ## 3. Confirm and delete
 
-Happy with the list? Run `gitsweep` with no flags. It prints the same grouped
+Happy with the list? Run `gitbroom` with no flags. It prints the same grouped
 list and then asks before removing anything:
 
 ```bash
-gitsweep
+gitbroom
 ```
 
 ```ansi
@@ -82,8 +82,8 @@ success you'll see each branch confirmed:
 
 ## Going further
 
-- Sweep only one kind of branch: `gitsweep --merged` or `gitsweep --gone`.
-- Skip the prompt in scripts: `gitsweep -y`.
-- Point at a non-standard default branch: `gitsweep --main develop`.
+- Sweep only one kind of branch: `gitbroom --merged` or `gitbroom --gone`.
+- Skip the prompt in scripts: `gitbroom -y`.
+- Point at a non-standard default branch: `gitbroom --main develop`.
 
-See the full [CLI reference](/gitsweep/cli/) for every flag and exit code.
+See the full [CLI reference](/gitbroom/cli/) for every flag and exit code.

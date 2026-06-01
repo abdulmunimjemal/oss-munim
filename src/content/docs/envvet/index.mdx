@@ -1,18 +1,18 @@
 ---
-title: dotcheck
+title: envvet
 description: Validate your .env against an .env.example contract so missing, extra, or empty variables are caught — locally and in CI.
 ---
 
 import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
 
-**Validate your `.env` against a contract.** `dotcheck` compares your real
+**Validate your `.env` against a contract.** `envvet` compares your real
 `.env` file against a committed `.env.example` and flags the keys that have
 drifted — locally and in CI.
 
 The `.env.example` in your repo is supposed to document every variable the app
 needs. In practice it drifts: someone adds a variable to their local `.env` and
 forgets the example, or a teammate clones the repo, copies the example, and
-ships with a blank `API_KEY`. `dotcheck` turns that implicit contract into
+ships with a blank `API_KEY`. `envvet` turns that implicit contract into
 something you can actually enforce. It tells you what's **missing**, what's
 **extra**, and what's present but **empty**, then exits non-zero on problems so
 it drops straight into a pipeline as a gate.
@@ -63,14 +63,14 @@ All environment variables present.
 
 ## Next steps
 
-<LinkCard title="Quick start" href="/dotcheck/quick-start/" description="From install to a CI gate in a few steps." />
-<LinkCard title="CLI" href="/dotcheck/cli/" description="Every flag, exit code, and example." />
-<LinkCard title="CI" href="/dotcheck/ci/" description="Gate pull requests on a drifted env contract." />
-<LinkCard title="API" href="/dotcheck/api/" description="Use parseEnv and compareEnv as a library." />
+<LinkCard title="Quick start" href="/envvet/quick-start/" description="From install to a CI gate in a few steps." />
+<LinkCard title="CLI" href="/envvet/cli/" description="Every flag, exit code, and example." />
+<LinkCard title="CI" href="/envvet/ci/" description="Gate pull requests on a drifted env contract." />
+<LinkCard title="API" href="/envvet/api/" description="Use parseEnv and compareEnv as a library." />
 
 ---
 
 <p>
   <Badge text="MIT" variant="note" /> &nbsp;
-  <a href="https://github.com/abdulmunimjemal/dotcheck">github.com/abdulmunimjemal/dotcheck</a>
+  <a href="https://github.com/abdulmunimjemal/envvet">github.com/abdulmunimjemal/envvet</a>
 </p>

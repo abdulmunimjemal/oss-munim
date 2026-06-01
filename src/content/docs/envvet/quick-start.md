@@ -6,15 +6,15 @@ description: From install to a working .env contract check, then a CI gate, in a
 ## 1. Install
 
 ```bash
-npm install --save-dev dotcheck
-# or: pnpm add -D dotcheck  ·  yarn add -D dotcheck
+npm install --save-dev envvet
+# or: pnpm add -D envvet  ·  yarn add -D envvet
 ```
 
-You can also run it without installing via `npx dotcheck`.
+You can also run it without installing via `npx envvet`.
 
 ## 2. Commit a contract
 
-`dotcheck` checks your real `.env` against an `.env.example` — the contract that
+`envvet` checks your real `.env` against an `.env.example` — the contract that
 lists every variable the app needs. If you don't have one yet, create it next to
 your `.env` and commit it:
 
@@ -32,10 +32,10 @@ Leave the values blank — the example documents the *keys*, not the secrets. Yo
 From the project root, with no arguments:
 
 ```bash
-npx dotcheck
+npx envvet
 ```
 
-`dotcheck` auto-detects `.env` and `.env.example` in the current directory,
+`envvet` auto-detects `.env` and `.env.example` in the current directory,
 compares them, prints a report, and exits non-zero if anything has drifted.
 
 ```ansi
@@ -68,22 +68,22 @@ All environment variables present.
 
 Drop a step into your pipeline so a drifted contract fails the build. Since
 `.env` is usually gitignored, check the example against itself (or against an
-`.env` you materialise from secrets — see [CI](/dotcheck/ci/)):
+`.env` you materialise from secrets — see [CI](/envvet/ci/)):
 
 ```yaml
-# .github/workflows/dotcheck.yml
+# .github/workflows/envvet.yml
 name: env
 on: [push, pull_request]
 jobs:
-  dotcheck:
+  envvet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npx dotcheck --env .env.example --example .env.example
+      - run: npx envvet --env .env.example --example .env.example
 ```
 
 That's it — a non-zero exit fails the job with no extra wiring. See the
-[CLI reference](/dotcheck/cli/) for every flag and exit code.
+[CLI reference](/envvet/cli/) for every flag and exit code.

@@ -1,17 +1,17 @@
 ---
-title: gitsweep
+title: gitbroom
 description: Interactively delete stale local git branches — already merged, or whose upstream is gone — in one safe command.
 ---
 
 import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
 
-**Clean up stale local git branches in one command.** `gitsweep` finds local
+**Clean up stale local git branches in one command.** `gitbroom` finds local
 branches that are already merged or whose upstream is gone, shows you the list
 grouped by reason, and deletes them only after your confirmation.
 
 Local branches pile up. You merge a PR, the remote branch gets deleted, but the
 local copy lingers. Multiply that by every feature you ship and `git branch`
-becomes a graveyard. `gitsweep` finds the dead branches and removes them —
+becomes a graveyard. `gitbroom` finds the dead branches and removes them —
 safely, and only after you say so. The **current branch** and the **default
 branch** are never touched.
 
@@ -38,7 +38,7 @@ branch** are never touched.
     branches use the safe `git branch -d`, which refuses to drop unmerged work.
   </Card>
   <Card title="Force deletes are flagged" icon="warning">
-    A gone-but-unmerged branch needs `git branch -D`. `gitsweep` labels it
+    A gone-but-unmerged branch needs `git branch -D`. `gitbroom` labels it
     **force delete** in the list, so you know exactly what you're agreeing to.
   </Card>
   <Card title="Confirm, or don't touch" icon="random">
@@ -57,13 +57,13 @@ branch** are never touched.
 
 ## Next steps
 
-<LinkCard title="Quick start" href="/gitsweep/quick-start/" description="Install, dry-run, then confirm and delete — in three steps." />
-<LinkCard title="How it works" href="/gitsweep/how-it-works/" description="What counts as stale, how the default branch is found, and the safety guarantees." />
-<LinkCard title="CLI reference" href="/gitsweep/cli/" description="Every flag, exit codes, and copy-paste examples." />
+<LinkCard title="Quick start" href="/gitbroom/quick-start/" description="Install, dry-run, then confirm and delete — in three steps." />
+<LinkCard title="How it works" href="/gitbroom/how-it-works/" description="What counts as stale, how the default branch is found, and the safety guarantees." />
+<LinkCard title="CLI reference" href="/gitbroom/cli/" description="Every flag, exit codes, and copy-paste examples." />
 
 ---
 
 <p>
   <Badge text="MIT" variant="note" /> &nbsp;
-  <a href="https://github.com/abdulmunimjemal/gitsweep">github.com/abdulmunimjemal/gitsweep</a>
+  <a href="https://github.com/abdulmunimjemal/gitbroom">github.com/abdulmunimjemal/gitbroom</a>
 </p>

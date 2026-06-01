@@ -1,14 +1,14 @@
 ---
 title: CLI
-description: The shipcard command — GitHub and local modes, every option, environment variables, exit codes, and examples.
+description: The shiptag command — GitHub and local modes, every option, environment variables, exit codes, and examples.
 ---
 
 ```bash
-shipcard <owner/repo> [options]      # GitHub mode (network)
-shipcard --local [path] [options]    # local mode (offline)
+shiptag <owner/repo> [options]      # GitHub mode (network)
+shiptag --local [path] [options]    # local mode (offline)
 ```
 
-`shipcard` has two modes. Pass an `owner/repo` slug to fetch from GitHub, or
+`shiptag` has two modes. Pass an `owner/repo` slug to fetch from GitHub, or
 pass `--local` to build a card from a directory on disk. In both cases it
 renders a standalone SVG and writes it to a file (`-o`) or stdout.
 
@@ -16,12 +16,12 @@ renders a standalone SVG and writes it to a file (`-o`) or stdout.
 
 ### GitHub mode
 
-Give `shipcard` a repository as `owner/repo`. It calls the GitHub REST API for
+Give `shiptag` a repository as `owner/repo`. It calls the GitHub REST API for
 the repo metadata (name, description, owner, stars, forks) and the language
 breakdown, then renders the card:
 
 ```bash
-shipcard abdulmunimjemal/shipcard -o card.svg
+shiptag abdulmunimjemal/shiptag -o card.svg
 ```
 
 A malformed slug (not exactly `owner/repo`) exits with a usage error. Exactly
@@ -41,8 +41,8 @@ network is used. The card is assembled from:
   `.cache`, `.turbo`, `vendor`, and `target`.
 
 ```bash
-shipcard --local .                       # current directory
-shipcard --local ../my-project -o my-project.svg
+shiptag --local .                       # current directory
+shiptag --local ../my-project -o my-project.svg
 ```
 
 Local mode reports no stars or forks (that data isn't available offline), so the
@@ -79,7 +79,7 @@ usage error.
 | `1` | Fetch / network error (e.g. repo not found, rate limited, summary request failed). |
 | `2` | Usage error (e.g. missing or malformed `owner/repo`, an invalid `--theme`/`--size`, an unexpected extra argument). |
 
-These make `shipcard` scriptable: a non-zero exit fails a CI step or a shell
+These make `shiptag` scriptable: a non-zero exit fails a CI step or a shell
 pipeline. A `403` from GitHub surfaces as exit `1` with a hint to set
 `GITHUB_TOKEN`; a `404` reports the repo wasn't found.
 
@@ -88,30 +88,30 @@ pipeline. A `403` from GitHub surfaces as exit `1` with a hint to set
 A light, compact card written to a file:
 
 ```bash
-shipcard abdulmunimjemal/shipcard --theme light --size card -o card.svg
+shiptag abdulmunimjemal/shiptag --theme light --size card -o card.svg
 ```
 
 Authenticated fetch for a large/popular repo (avoids rate limiting):
 
 ```bash
-GITHUB_TOKEN=ghp_xxx shipcard facebook/react -o react.svg
+GITHUB_TOKEN=ghp_xxx shiptag facebook/react -o react.svg
 ```
 
 Pipe the SVG straight into another tool instead of a file:
 
 ```bash
-shipcard vercel/next.js > next.svg
+shiptag vercel/next.js > next.svg
 ```
 
 Build a card from the working tree of a local project:
 
 ```bash
-shipcard --local . -o card.svg
+shiptag --local . -o card.svg
 ```
 
 Use an AI summary instead of the repo description, via a custom gateway:
 
 ```bash
 OPENAI_API_KEY=sk-xxx \
-  shipcard owner/repo --summary --base-url https://my-gateway.example/v1 -o card.svg
+  shiptag owner/repo --summary --base-url https://my-gateway.example/v1 -o card.svg
 ```

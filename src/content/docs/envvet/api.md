@@ -1,6 +1,6 @@
 ---
 title: API
-description: Use dotcheck as a library — parseEnv, compareEnv, and the CompareOptions / CompareResult types.
+description: Use envvet as a library — parseEnv, compareEnv, and the CompareOptions / CompareResult types.
 ---
 
 The CLI is the primary interface, but the same machinery is exported so you can
@@ -8,8 +8,8 @@ wire env validation into your own scripts and tooling. Two functions and two
 types — no config, no side effects.
 
 ```ts
-import { parseEnv, compareEnv } from "dotcheck";
-import type { CompareOptions, CompareResult } from "dotcheck";
+import { parseEnv, compareEnv } from "envvet";
+import type { CompareOptions, CompareResult } from "envvet";
 
 const env = parseEnv("FOO=bar\nexport BAZ='qux'");
 // → { FOO: "bar", BAZ: "qux" }
@@ -118,7 +118,7 @@ compare, report:
 
 ```ts
 import { readFileSync } from "node:fs";
-import { parseEnv, compareEnv } from "dotcheck";
+import { parseEnv, compareEnv } from "envvet";
 
 const result = compareEnv({
   env: parseEnv(readFileSync(".env", "utf8")),

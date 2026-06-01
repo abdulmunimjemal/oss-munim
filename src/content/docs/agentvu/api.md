@@ -1,9 +1,9 @@
 ---
 title: API
-description: The exported agentwatch library surface — recording, event encoding, cost, summarization, formatting, and the key types.
+description: The exported agentvu library surface — recording, event encoding, cost, summarization, formatting, and the key types.
 ---
 
-agentwatch is a library first and a CLI second. Everything the CLI uses is
+agentvu is a library first and a CLI second. Everything the CLI uses is
 exported, so you can record, parse, summarize, price, and format events from
 your own code. This page is the full exported surface.
 
@@ -13,10 +13,10 @@ import {
   parseJsonl, encodeEvent, isAgentEvent,
   summarize, costOf, priceOf, PRICES,
   formatDuration, formatCost, compactValue,
-} from "agentwatch";
+} from "agentvu";
 import type {
   AgentEvent, Recorder, AiSdkStep, SessionSummary,
-} from "agentwatch";
+} from "agentvu";
 ```
 
 ## Recording
@@ -32,7 +32,7 @@ Create a `Recorder`. Pass `out` to stream events to a JSONL file (created /
 appended); pass `now` to inject a clock for deterministic tests. The returned
 recorder exposes `message`, `model`, `toolCall`, `toolResult`, `usage`, and
 `error` methods, a readonly `events` array, and `close()`. See
-[Recording](/agentwatch/recording/) for the methods in detail.
+[Recording](/agentvu/recording/) for the methods in detail.
 
 ### `recordStep(recorder, step)`
 
@@ -40,7 +40,7 @@ recorder exposes `message`, `model`, `toolCall`, `toolResult`, `usage`, and
 function recordStep(recorder: Recorder, step: AiSdkStep): void;
 ```
 
-Map a single Vercel AI SDK `onStepFinish` step into agentwatch events, recording
+Map a single Vercel AI SDK `onStepFinish` step into agentvu events, recording
 them in order: assistant text (if any) → tool calls → tool results → usage. Does
 not import the `ai` package — it matches the step's *shape* — and every field on
 the step is optional, so partial steps degrade gracefully.
@@ -117,7 +117,7 @@ const PRICES: Record<string, ModelPrice>;
 ```
 
 The built-in, approximate price table (USD per 1M tokens). See
-[Recording → Cost estimation](/agentwatch/recording/#cost-estimation) for the
+[Recording → Cost estimation](/agentvu/recording/#cost-estimation) for the
 covered models and the caveats.
 
 ## Formatting
@@ -183,7 +183,7 @@ interface RecorderOptions {
 
 The minimal structural model of a Vercel AI SDK step. `AiSdkToolCall`,
 `AiSdkToolResult`, and `AiSdkUsage` are exported alongside it. See
-[Recording → The Vercel AI SDK adapter](/agentwatch/recording/#the-vercel-ai-sdk-adapter).
+[Recording → The Vercel AI SDK adapter](/agentvu/recording/#the-vercel-ai-sdk-adapter).
 
 ### `SessionSummary`
 

@@ -1,6 +1,6 @@
 ---
 title: Programmatic API
-description: Use shipcard as a library — renderCard, computeLanguages, the data sources, the color helpers, and the exported types.
+description: Use shiptag as a library — renderCard, computeLanguages, the data sources, the color helpers, and the exported types.
 ---
 
 The CLI is one entry point, but the same machinery is exported as a library. The
@@ -10,10 +10,10 @@ local, and summary data sources are kept in separate modules so network access
 stays isolated.
 
 ```ts
-import { renderCard, computeLanguages } from "shipcard";
+import { renderCard, computeLanguages } from "shiptag";
 
 const svg = renderCard({
-  name: "shipcard",
+  name: "shiptag",
   owner: "abdulmunimjemal",
   description: "Generate a beautiful, shareable SVG card for any repository.",
   languages: computeLanguages({ TypeScript: 9200, JavaScript: 600 }),
@@ -132,13 +132,13 @@ AI endpoint, and only when you invoke it.
 ## Color helpers
 
 ```ts
-import { colorForLanguage, LANGUAGE_COLORS, NEUTRAL_COLOR, EXTENSION_LANGUAGES } from "shipcard";
+import { colorForLanguage, LANGUAGE_COLORS, NEUTRAL_COLOR, EXTENSION_LANGUAGES } from "shiptag";
 ```
 
 - **`colorForLanguage(name)`** → `string` — the canonical hex color for a
   language name, or `NEUTRAL_COLOR` for anything unknown.
 - **`LANGUAGE_COLORS`** — the `Record<string, string>` map of language → hex
-  color (see [Customization](/shipcard/customization/#the-color-map)).
+  color (see [Customization](/shiptag/customization/#the-color-map)).
 - **`NEUTRAL_COLOR`** — `"#8b949e"`, the grey fallback.
 - **`EXTENSION_LANGUAGES`** — the `Record<string, string>` map of lowercased
   file extension (no leading dot) → language name used by local-mode scanning.
@@ -146,7 +146,7 @@ import { colorForLanguage, LANGUAGE_COLORS, NEUTRAL_COLOR, EXTENSION_LANGUAGES }
 ## Formatting helpers
 
 ```ts
-import { escapeXml, formatCount } from "shipcard";
+import { escapeXml, formatCount } from "shiptag";
 ```
 
 - **`escapeXml(value)`** → `string` — escape a string for safe inclusion in SVG
@@ -157,7 +157,7 @@ import { escapeXml, formatCount } from "shipcard";
 ## Errors
 
 ```ts
-import { GitHubError, SummaryError } from "shipcard";
+import { GitHubError, SummaryError } from "shiptag";
 ```
 
 - **`GitHubError`** — thrown by `fetchGitHubCard` / `parseSlug` on a malformed

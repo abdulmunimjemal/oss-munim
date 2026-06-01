@@ -1,9 +1,9 @@
 ---
 title: How it works
-description: What gitsweep treats as stale, how it finds the default branch, the safe vs force delete strategy, and the confirmation prompt.
+description: What gitbroom treats as stale, how it finds the default branch, the safe vs force delete strategy, and the confirmation prompt.
 ---
 
-`gitsweep` does one thing: it computes the set of local branches that are safe to
+`gitbroom` does one thing: it computes the set of local branches that are safe to
 remove, shows them to you, and — once you confirm — deletes them. This page
 explains how each of those decisions is made.
 
@@ -16,7 +16,7 @@ A local branch is offered for deletion when it is either:
 - **gone** — its upstream tracking branch was deleted on the remote, which git
   records as the `[origin/x: gone]` marker in `git branch -vv`.
 
-Everything `gitsweep` knows comes from parsing those two git commands. It never
+Everything `gitbroom` knows comes from parsing those two git commands. It never
 guesses: a branch with no upstream and no merge into the default branch is left
 alone.
 
@@ -30,7 +30,7 @@ deliberate, so a branch that can be removed safely never gets force-deleted.
 ## Finding the default branch
 
 The default branch is what "merged" is measured against, and it's one of the two
-branches that is never deleted. `gitsweep` detects it best-effort, in order:
+branches that is never deleted. `gitbroom` detects it best-effort, in order:
 
 1. **`origin/HEAD`** — the remote's declared default (`refs/remotes/origin/HEAD`),
    if that symbolic ref is set. This is the most reliable signal.
@@ -41,7 +41,7 @@ If detection guesses wrong — for example your repo's trunk is `develop` — pa
 `--main <branch>` to override it:
 
 ```bash
-gitsweep --main develop
+gitbroom --main develop
 ```
 
 ## Safety guarantees
@@ -52,7 +52,7 @@ These hold on every run, with or without `-y`:
   `git branch -vv`) is always excluded.
 - **The default branch is never deleted.** Whether detected or set with
   `--main`, it is excluded as a candidate.
-- **Detached HEAD is handled.** If you're not on a branch, `gitsweep` reports
+- **Detached HEAD is handled.** If you're not on a branch, `gitbroom` reports
   `detached HEAD` and still excludes the default branch.
 - **`--dry-run` changes nothing.** It prints the exact list that a real run
   would act on, then exits. It's the recommended first run.
@@ -69,12 +69,12 @@ How a branch is deleted depends on why it's stale:
 The **safe** delete (`-d`) refuses to drop a branch that still has unmerged
 commits, so merged branches can never take work down with them. A gone branch
 that was never merged genuinely needs the **force** delete (`-D`) — and because
-that can discard commits, `gitsweep` labels it `force delete` in the list so you
+that can discard commits, `gitbroom` labels it `force delete` in the list so you
 see it before you confirm.
 
 ## The confirmation prompt
 
-After computing candidates, `gitsweep` prints a header with the default and
+After computing candidates, `gitbroom` prints a header with the default and
 current branch, then groups the candidates under **Merged into default branch**
 and **Upstream gone**, flagging any force deletes:
 

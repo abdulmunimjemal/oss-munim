@@ -1,9 +1,9 @@
 ---
 title: Recording
-description: The agentwatch recording library in depth — the event model, createRecorder and its methods, the Vercel AI SDK adapter, and approximate cost estimation.
+description: The agentvu recording library in depth — the event model, createRecorder and its methods, the Vercel AI SDK adapter, and approximate cost estimation.
 ---
 
-The recording side of agentwatch is a small, pure library. You create a
+The recording side of agentvu is a small, pure library. You create a
 recorder, call a method per thing that happens, and out comes a stream of
 JSON-serializable events — optionally appended, one per line, to a JSONL file.
 There are no classes with behaviour, no network, and no dependency on any
@@ -48,7 +48,7 @@ A few small helpers move events to and from JSONL. These are the same functions
 the CLI uses, and they're exported for your own tooling:
 
 ```ts
-import { encodeEvent, parseJsonl, isAgentEvent } from "agentwatch";
+import { encodeEvent, parseJsonl, isAgentEvent } from "agentvu";
 
 encodeEvent(event);          // → one JSONL line (no trailing newline)
 parseJsonl(fileContents);    // → AgentEvent[]
@@ -68,7 +68,7 @@ onto an in-memory array, and — when `out` is set — appends one JSONL line to
 that file.
 
 ```ts
-import { createRecorder } from "agentwatch";
+import { createRecorder } from "agentvu";
 
 const rec = createRecorder({ out: "session.jsonl" });
 ```
@@ -125,12 +125,12 @@ written file is safe to tail with `--follow`.
 ## The Vercel AI SDK adapter
 
 `recordStep(recorder, step)` is the one-line bridge from the
-[Vercel AI SDK](https://sdk.vercel.dev/) to agentwatch. Pass it as the SDK's
+[Vercel AI SDK](https://sdk.vercel.dev/) to agentvu. Pass it as the SDK's
 `onStepFinish` callback and every step is recorded:
 
 ```ts
 import { generateText } from "ai";
-import { createRecorder, recordStep } from "agentwatch";
+import { createRecorder, recordStep } from "agentvu";
 
 const rec = createRecorder({ out: "session.jsonl" });
 
@@ -160,7 +160,7 @@ For each step, `recordStep` emits events **in order**:
 ### Why it doesn't import `ai`
 
 The adapter deliberately does **not** import the `ai` package. It only models
-the *shape* of the step object the SDK hands to `onStepFinish`, so agentwatch
+the *shape* of the step object the SDK hands to `onStepFinish`, so agentvu
 carries no runtime dependency on `ai` and works across SDK versions. Every field
 on the modeled step is optional, so a partial or future-version step degrades
 gracefully rather than throwing.
@@ -192,7 +192,7 @@ interface AiSdkStep {
 `costOf(usage)` turns a usage event into an approximate USD figure:
 
 ```ts
-import { costOf } from "agentwatch";
+import { costOf } from "agentvu";
 
 costOf({ inputTokens: 540, outputTokens: 120, model: "gpt-4o" }); // ≈ USD
 ```
@@ -226,7 +226,7 @@ suffixes — it picks the **longest known key** the model name contains. So
 `gpt-4o-2024-08-06` and `anthropic/claude-3.5-sonnet` both resolve correctly.
 
 ```ts
-import { priceOf } from "agentwatch";
+import { priceOf } from "agentvu";
 
 priceOf("gpt-4o-2024-08-06");            // → { input: 2.5, output: 10 }
 priceOf("anthropic/claude-3.5-sonnet");  // → { input: 3, output: 15 }
