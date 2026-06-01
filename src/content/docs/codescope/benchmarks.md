@@ -29,20 +29,24 @@ because the output is built for an agent to read, not a human to skim.
 
 ## Accuracy — "did it return the right answer?"
 
-The axis that matters most for an agent. Ground truth comes from the
-**TypeScript compiler** (`LanguageService.findReferences` — the engine behind
-go-to-definition). For each definition we compute the true set of files
-containing a call to it, then score each tool's `callers` answer.
+The axis that matters most for an agent. Ground truth comes from each language's
+**own native analysis engine** — the TypeScript compiler, Jedi for Python,
+`go/types` for Go — not from codescope. For each definition we compute the true
+set of files containing a call to it, then score each tool's `callers` answer.
 
-| package | codescope (P / R / **F1**) | codegraph (P / R / **F1**) | winner |
-|---------|---------------------------|----------------------------|:------:|
-| core (88 defs)   | 0.93 / 1.00 / **0.952** | 0.71 / 0.67 / 0.664 | codescope |
-| client (39 defs) | 0.89 / 1.00 / **0.916** | 0.80 / 0.65 / 0.701 | codescope |
-| server (36 defs) | 0.94 / 1.00 / **0.956** | 0.94 / 0.90 / 0.906 | codescope |
+| language | oracle | repo | codescope F1 | codegraph F1 |
+|----------|--------|------|:------------:|:------------:|
+| TypeScript | `tsc` | MCP SDK core / client / server | **0.95 / 0.92 / 0.96** | 0.66 / 0.70 / 0.91 |
+| TypeScript | `tsc` | got · zustand | **0.97 · 0.99** | 0.75 · 0.87 |
+| Python | Jedi | requests | **0.869** | 0.534 |
+| Go | `go/types` | gin | **0.720** | 0.646 |
 
-codescope returns the right callers more often on every package. It never misses
-a true caller (recall 1.00) where codegraph misses 10–35%; its precision matches
-or beats codegraph's.
+**codescope wins caller accuracy on every language and repo tested.** It rarely
+misses a true caller (high recall) where codegraph misses 13–48%, with matching
+or better precision. Go is the hardest case — gin reuses method names across many
+types (`Use`, `Next`, `Handle`), so *both* tools have ~0.6 precision there without
+receiver-type resolution; codescope still wins net. Type-aware method resolution
+is the roadmap item that would lift precision further.
 
 ## Honest caveats
 
