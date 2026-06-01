@@ -61,7 +61,9 @@ export default defineConfig({
           label: "tokcost",
           items: [
             { label: "Introduction", link: "/tokcost/" },
-            { label: "Usage", link: "/tokcost/usage/" },
+            { label: "Quick start", link: "/tokcost/quick-start/" },
+            { label: "CLI", link: "/tokcost/cli/" },
+            { label: "Models & pricing", link: "/tokcost/models/" },
             { label: "Library API", link: "/tokcost/api/" },
           ],
         },
@@ -69,15 +71,18 @@ export default defineConfig({
           label: "heyllm",
           items: [
             { label: "Introduction", link: "/heyllm/" },
-            { label: "Usage", link: "/heyllm/usage/" },
+            { label: "Quick start", link: "/heyllm/quick-start/" },
+            { label: "CLI", link: "/heyllm/cli/" },
             { label: "Configuration", link: "/heyllm/configuration/" },
+            { label: "Recipes", link: "/heyllm/recipes/" },
           ],
         },
         {
           label: "dotcheck",
           items: [
             { label: "Introduction", link: "/dotcheck/" },
-            { label: "Usage", link: "/dotcheck/usage/" },
+            { label: "Quick start", link: "/dotcheck/quick-start/" },
+            { label: "CLI", link: "/dotcheck/cli/" },
             { label: "CI", link: "/dotcheck/ci/" },
             { label: "API", link: "/dotcheck/api/" },
           ],
@@ -86,7 +91,39 @@ export default defineConfig({
           label: "gitsweep",
           items: [
             { label: "Introduction", link: "/gitsweep/" },
-            { label: "Usage", link: "/gitsweep/usage/" },
+            { label: "Quick start", link: "/gitsweep/quick-start/" },
+            { label: "How it works", link: "/gitsweep/how-it-works/" },
+            { label: "CLI", link: "/gitsweep/cli/" },
+          ],
+        },
+        {
+          label: "agentwatch",
+          items: [
+            { label: "Introduction", link: "/agentwatch/" },
+            { label: "Quick start", link: "/agentwatch/quick-start/" },
+            { label: "Recording", link: "/agentwatch/recording/" },
+            { label: "CLI", link: "/agentwatch/cli/" },
+            { label: "API", link: "/agentwatch/api/" },
+          ],
+        },
+        {
+          label: "readmecast",
+          items: [
+            { label: "Introduction", link: "/readmecast/" },
+            { label: "Quick start", link: "/readmecast/quick-start/" },
+            { label: "Markdown format", link: "/readmecast/markdown-format/" },
+            { label: "CLI", link: "/readmecast/cli/" },
+            { label: "Programmatic API", link: "/readmecast/api/" },
+          ],
+        },
+        {
+          label: "shipcard",
+          items: [
+            { label: "Introduction", link: "/shipcard/" },
+            { label: "Quick start", link: "/shipcard/quick-start/" },
+            { label: "CLI", link: "/shipcard/cli/" },
+            { label: "Customization", link: "/shipcard/customization/" },
+            { label: "Programmatic API", link: "/shipcard/api/" },
           ],
         },
       ],

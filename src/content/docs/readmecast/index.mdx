@@ -1,0 +1,79 @@
+---
+title: readmecast
+description: Turn a Markdown file into a gorgeous, self-contained animated terminal-demo SVG — no tape files, no recording session. It animates on GitHub as a plain <img>.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Turn a Markdown file into a gorgeous, self-contained animated terminal demo
+SVG.** No hand-authored tape files, no recording session, no runtime player.
+
+readmecast reads the shell snippets you already wrote in your README, and renders
+an animated terminal that "types" each command character-by-character, pauses,
+then reveals its output line by line. The result is a single standalone SVG with
+pure-CSS `@keyframes` animation — so it animates even when embedded as a plain
+`<img>`, which is exactly how GitHub renders README images. No GIF bloat, no
+external player, no JavaScript.
+
+```bash
+$ npm install readmecast
+added 1 package in 1.2s
+$ readmecast README.md -o demo.svg
+wrote demo.svg
+$ echo "embed it in your README and ship"
+embed it in your README and ship
+```
+
+That fenced block above is exactly the kind of input readmecast consumes. Point
+the CLI at the file, and it casts those three commands and their output into one
+animated `demo.svg` you drop straight into your README:
+
+```markdown
+![demo](demo.svg)
+```
+
+<CardGrid>
+  <Card title="Your docs are the source of truth" icon="document">
+    Write the session once, in normal fenced code blocks, and let readmecast cast
+    it. There are no `.tape` or `.cast` files to keep in sync with reality.
+  </Card>
+  <Card title="Animates on GitHub" icon="github">
+    GitHub strips `<script>` from SVGs but keeps CSS animations. A single
+    `<img src="demo.svg">` plays the typing and reveal — no GIF, no external asset.
+  </Card>
+  <Card title="Self-contained & safe" icon="approve-check">
+    Pure CSS animation, no JavaScript. Commands are **never executed** — the SVG
+    renders exactly the output you documented, so it can't surprise you.
+  </Card>
+  <Card title="Dependency-light" icon="rocket">
+    A hand-rolled Markdown line scanner and a string-built SVG. No Markdown
+    parser, no headless browser, no native binaries.
+  </Card>
+</CardGrid>
+
+## How it works
+
+1. **Extract.** readmecast scans your Markdown for fenced shell blocks
+   (`bash`, `sh`, `shell`, `console`, `zsh`, `shell-session`). Inside each, lines
+   beginning with `$ ` or `> ` are commands; the lines after a command — up to the
+   next command — are its output.
+2. **Render.** Each step becomes a row in a terminal window. Commands type out
+   character-by-character behind an animated clip rect with a blinking cursor;
+   output lines snap into view a beat later.
+3. **Embed.** The whole demo is encoded as staggered CSS `@keyframes` with
+   `animation-delay`, so the SVG is fully self-contained and plays inside an
+   `<img>` tag.
+
+## Next steps
+
+<LinkCard title="Quick start" href="/readmecast/quick-start/" description="From install to an animated SVG embedded in your README, in a few steps." />
+<LinkCard title="Markdown format" href="/readmecast/markdown-format/" description="Exactly which blocks, prompts, and lines become commands and output." />
+<LinkCard title="CLI" href="/readmecast/cli/" description="Every flag — themes, width, speed, titles, looping, and stdin." />
+<LinkCard title="Programmatic API" href="/readmecast/api/" description="parseMarkdown, renderSvg, markdownToSvg, and the exported types." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/readmecast">github.com/abdulmunimjemal/readmecast</a>
+</p>

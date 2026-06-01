@@ -1,0 +1,70 @@
+---
+title: agentwatch
+description: Watch your AI agent think — record a run as structured JSONL events and replay it as a live terminal dashboard of model calls, tool calls, tokens, cost, and durations.
+---
+
+import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Watch your AI agent think, live, in a beautiful terminal dashboard.** agentwatch
+is a tiny library + CLI that **records** an AI agent's run as a stream of
+structured events and **visualizes** it as a timeline of model calls, tool calls
+(with their args and results), tokens, cost, and durations. Replay a finished
+run, or follow it live as it happens.
+
+An agent run is invisible by default. The model fires off a tool call, gets a
+result, reasons again, calls another tool, and finally answers — but all you
+see in your logs is a wall of JSON, if anything. agentwatch turns that run into
+a stream you can actually read: one structured event per line, rendered as a
+dashboard you can replay or watch in real time.
+
+```ansi
+agentwatch session.jsonl
+steps 3  tools getWeather,getForecast  tokens 1996  cost $0.02  dur 3.0s
+
+▍ user What's the weather in Tokyo and should I bring an umbrella?
+◆ gpt-4o system + user: weather question for Tokyo (820ms)
+→ getWeather {"city":"Tokyo","units":"metric"}
+← getWeather {"tempC":18,"condition":"light rain",...} (260ms)
+∑ usage 412 in / 86 out (gpt-4o)
+◆ gpt-4o reason over weather tool result (640ms)
+→ getForecast {"city":"Tokyo","hours":6}
+← getForecast {"chanceOfRain":0.72,"summary":"rain likely..."} (230ms)
+∑ usage 540 in / 120 out (gpt-4o)
+◆ gpt-4o compose final answer (710ms)
+▍ assistant It's 18°C with light rain in Tokyo and a 72% chance...
+∑ usage 680 in / 58 out (gpt-4o)
+```
+
+<CardGrid>
+  <Card title="1-line AI SDK integration" icon="rocket">
+    Drop `recordStep` into the Vercel AI SDK's `onStepFinish` and every step is
+    captured. agentwatch never imports the `ai` package — it matches the step's
+    *shape*, so it stays dependency-light.
+  </Card>
+  <Card title="Zero lock-in" icon="open-book">
+    Events are plain JSON, one per line (JSONL). No service, no proprietary SDK
+    to learn, no network call. Tail it, `grep` it, commit it — it's just a file.
+  </Card>
+  <Card title="Live or replayed" icon="seti:clock">
+    Render a finished run, or pass `--follow` to tail the file and re-render the
+    dashboard every time your agent appends a new event.
+  </Card>
+  <Card title="Cost & tokens built in" icon="approve-check">
+    An approximate, built-in price table for popular models turns token usage
+    into a ballpark dollar figure right in the header.
+  </Card>
+</CardGrid>
+
+## Next steps
+
+<LinkCard title="Quick start" href="/agentwatch/quick-start/" description="From install to a recorded and visualized run in a few steps." />
+<LinkCard title="Recording" href="/agentwatch/recording/" description="The event model, the recorder, the AI SDK adapter, and cost estimation." />
+<LinkCard title="CLI" href="/agentwatch/cli/" description="The agentwatch command — arguments, flags, exit codes, and examples." />
+<LinkCard title="API" href="/agentwatch/api/" description="The exported library surface — functions and key types." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/agentwatch">github.com/abdulmunimjemal/agentwatch</a>
+</p>

@@ -10,9 +10,9 @@ that streams answers from any OpenAI-compatible Chat Completions API straight to
 stdout — built for daily use and pipelines.
 
 You ask a question, you get an answer. No plugins, no config files, no chat
-history — just one command that pipes well. Because it reads piped input as
-context, it slots naturally into shell workflows: hand it a diff, a log, a file,
-and an instruction, and let the model do the rest.
+history — just one command that pipes well. And because it reads piped input as
+context, it slots naturally into shell workflows: hand it a diff, a log, or a
+file plus an instruction, and let the model do the rest.
 
 ```console
 $ heyllm "explain monads simply"
@@ -22,10 +22,15 @@ $ git diff | heyllm "write a conventional commit message"
 feat(parser): handle SSE frames split across network chunks
 ```
 
+The prompt is the instruction; piped stdin is the material it works on. That one
+idea — `<context> | heyllm "<instruction>"` — is most of what makes `heyllm`
+useful day to day.
+
 <CardGrid>
   <Card title="Pipes like a Unix tool" icon="seti:shell">
-    Reads piped stdin as context and prints the answer to stdout. The prompt is
-    the instruction; stdin is the material it works on.
+    Reads piped stdin as context and prints the answer to stdout. The positional
+    prompt is the instruction; stdin is what it operates on — combined into one
+    user message, prompt first.
   </Card>
   <Card title="Any OpenAI-compatible API" icon="puzzle">
     Speaks the OpenAI Chat Completions wire format, so `--base-url` points it at
@@ -33,18 +38,20 @@ feat(parser): handle SSE frames split across network chunks
   </Card>
   <Card title="Streams by default" icon="rocket">
     Tokens print as they arrive, parsed from server-sent events. Pass
-    `--no-stream` when you want the full response in one shot.
+    `--no-stream` when you'd rather wait for the full response in one shot.
   </Card>
   <Card title="Tiny & auditable" icon="approve-check">
-    Dependency-light, no config files, no hidden state. A small binary that does
-    the obvious thing — and `--json` gives you the raw response for scripting.
+    One dependency, no config files, no hidden state. A small binary that does
+    the obvious thing — and `--json` hands you the raw response for scripting.
   </Card>
 </CardGrid>
 
 ## Next steps
 
-<LinkCard title="Usage" href="/heyllm/usage/" description="Install, every flag, exit codes, and worked examples." />
+<LinkCard title="Quick start" href="/heyllm/quick-start/" description="Install, set your API key, and run your first prompt in four steps." />
+<LinkCard title="CLI reference" href="/heyllm/cli/" description="Every flag, stdin behavior, streaming, exit codes, and worked examples." />
 <LinkCard title="Configuration" href="/heyllm/configuration/" description="API keys, OpenAI-compatible providers, and model selection." />
+<LinkCard title="Recipes" href="/heyllm/recipes/" description="Useful one-liners — commit messages, command explainers, file summaries, and more." />
 
 ---
 

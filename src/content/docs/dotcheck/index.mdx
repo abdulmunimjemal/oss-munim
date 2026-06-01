@@ -13,9 +13,11 @@ The `.env.example` in your repo is supposed to document every variable the app
 needs. In practice it drifts: someone adds a variable to their local `.env` and
 forgets the example, or a teammate clones the repo, copies the example, and
 ships with a blank `API_KEY`. `dotcheck` turns that implicit contract into
-something you can actually enforce — it tells you what's **missing**, what's
-**extra**, and what's present but **empty**, and exits non-zero on problems so
+something you can actually enforce. It tells you what's **missing**, what's
+**extra**, and what's present but **empty**, then exits non-zero on problems so
 it drops straight into a pipeline as a gate.
+
+When something has drifted, you get a grouped, colour-coded report:
 
 ```ansi
 Missing (1)
@@ -28,7 +30,12 @@ Extra (1)
   • EXTRA_THING
 ```
 
-On a clean run:
+- **Missing** — the example defines `LOG_LEVEL`, but your `.env` never sets it.
+- **Empty** — `API_KEY` exists in your `.env`, but its value is blank.
+- **Extra** — your `.env` defines `EXTRA_THING`, which the example doesn't know
+  about (suppress with `--allow-extra`).
+
+On a clean run, there's a single line and an exit code of `0`:
 
 ```ansi
 All environment variables present.
@@ -56,8 +63,10 @@ All environment variables present.
 
 ## Next steps
 
-<LinkCard title="Usage" href="/dotcheck/usage/" description="Install, flags, exit codes, and the library API." />
+<LinkCard title="Quick start" href="/dotcheck/quick-start/" description="From install to a CI gate in a few steps." />
+<LinkCard title="CLI" href="/dotcheck/cli/" description="Every flag, exit code, and example." />
 <LinkCard title="CI" href="/dotcheck/ci/" description="Gate pull requests on a drifted env contract." />
+<LinkCard title="API" href="/dotcheck/api/" description="Use parseEnv and compareEnv as a library." />
 
 ---
 

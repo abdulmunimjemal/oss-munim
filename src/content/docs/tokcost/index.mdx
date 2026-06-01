@@ -1,6 +1,6 @@
 ---
 title: tokcost
-description: An instant, offline token + cost counter for LLM text — count tokens locally and estimate input cost, with no network and no API key.
+description: An instant, offline token + cost counter for LLM text — count tokens locally, estimate input cost, and pipe JSON, with no network and no API key.
 ---
 
 import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
@@ -12,16 +12,14 @@ and, on request, estimates what that input would cost.
 Token counts drive both your context budget and your bill, but they're easy to
 lose track of while iterating on a prompt. `tokcost` is a daily-use tool for
 anyone building with LLMs: a fast, deterministic counter that runs entirely on
-your machine — no network round-trip, no API key — and tells you exactly which
-encoding it used.
+your machine — no network round-trip, no API key — and always tells you exactly
+which encoding it used.
 
 ```ansi
 $ tokcost --cost -m gpt-4o prompt.md
-
-  prompt.md   42 tokens
-
-  total       42 tokens  (o200k_base)
-  cost        $0.000105  (gpt-4o · $2.50 / 1M tokens)
+[1m42[0m tokens [2m(prompt.md)[0m
+[2mmodel: gpt-4o  encoding: o200k_base[0m
+[2m≈[0m [1m$0.0001[0m (input)[2m  — approximate, editable pricing[0m
 ```
 
 <CardGrid>
@@ -43,10 +41,27 @@ $ tokcost --cost -m gpt-4o prompt.md
   </Card>
 </CardGrid>
 
+## How it works
+
+`tokcost` resolves the model you pass (default `gpt-4o`) to a tiktoken encoding,
+runs the text through [`gpt-tokenizer`](https://github.com/niieani/gpt-tokenizer)
+locally, and prints the count. Add `--cost` and it multiplies that count by an
+approximate per-million-token input price from a small built-in table. Add
+`--json` and the whole result comes back as a structured object you can pipe
+into other tooling.
+
+Counts are **exact for OpenAI models**. For `claude-*` and `gemini-*` there is
+no public local tokenizer, so `tokcost` approximates with the closest OpenAI
+encoding (`o200k_base`) — and it always prints the encoding it used, so the
+number is never a black box. See [Models & pricing](/tokcost/models/) for the
+full mapping and caveats.
+
 ## Next steps
 
-<LinkCard title="Usage" href="/tokcost/usage/" description="Install, count files, pipe stdin, and every flag." />
-<LinkCard title="Library API" href="/tokcost/api/" description="countTokens, estimateCost, and resolveEncoding." />
+<LinkCard title="Quick start" href="/tokcost/quick-start/" description="Install, count a file, pipe stdin, add --cost, and read JSON — in a few steps." />
+<LinkCard title="CLI reference" href="/tokcost/cli/" description="Every flag, multi-file totals, exit codes, and examples." />
+<LinkCard title="Models & pricing" href="/tokcost/models/" description="The model → encoding mapping and the approximate pricing table." />
+<LinkCard title="Library API" href="/tokcost/api/" description="countTokens, estimateCost, resolveEncoding, and the exported types." />
 
 ---
 

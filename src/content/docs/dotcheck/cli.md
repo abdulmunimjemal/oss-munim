@@ -1,7 +1,15 @@
 ---
-title: Usage
-description: Install dotcheck, then run it with flags, paths, and the right exit codes.
+title: CLI
+description: The dotcheck command — install, flags, exit codes, and examples.
 ---
+
+```bash
+dotcheck [options]
+```
+
+Run with no arguments, `dotcheck` auto-detects `.env` and `.env.example` in the
+current directory, compares them, prints a report, and exits non-zero if
+anything has drifted.
 
 ## Install
 
@@ -32,10 +40,6 @@ From a project root containing `.env` and `.env.example`:
 dotcheck
 ```
 
-With no arguments, `dotcheck` auto-detects `.env` and `.env.example` in the
-current directory, compares them, prints a report, and exits non-zero if
-anything has drifted.
-
 ```ansi
 Missing (1)
   • LOG_LEVEL
@@ -61,8 +65,8 @@ All environment variables present.
 | `--example <path>` | `.env.example` | Path to the contract file. |
 | `--allow-extra` | `false` | Don't fail on keys present in `.env` but not in the example. |
 | `--json` | `false` | Emit machine-readable JSON instead of the report. |
-| `-h, --help` | | Show help. |
-| `-v, --version` | | Show the version. |
+| `-h`, `--help` | | Show help. |
+| `-v`, `--version` | | Show the version. |
 
 ## Exit codes
 
@@ -72,9 +76,11 @@ All environment variables present.
 | `1` | Problems found (missing / empty, or extra when not allowed). |
 | `2` | Runtime error (e.g. the example file could not be read). |
 
-A missing `.env` is treated as a normal failure (every key is reported missing),
-not a runtime error — only an unreadable **example** file produces exit code `2`.
-These codes make `dotcheck` a drop-in CI step: a non-zero exit fails the job.
+A missing `.env` is **not** a runtime error — every key is simply reported as
+missing, and the command exits `1`. Only an unreadable **example** file (it's
+the contract; without it there's nothing to check against) produces exit code
+`2`. An unknown flag also exits `2`. These codes make `dotcheck` a drop-in CI
+step: a non-zero exit fails the job.
 
 ## Examples
 
@@ -97,8 +103,18 @@ dotcheck --json
 ```
 
 ```json
-{ "missing": ["LOG_LEVEL"], "extra": ["EXTRA_THING"], "empty": ["API_KEY"], "ok": false }
+{
+  "missing": ["LOG_LEVEL"],
+  "extra": ["EXTRA_THING"],
+  "empty": ["API_KEY"],
+  "ok": false
+}
 ```
+
+The JSON object is the same `CompareResult` returned by the
+[library API](/dotcheck/api/), so the CLI and the library report drift
+identically. `--json` always exits with the normal exit code (`0` / `1`), so you
+can both branch on the output and rely on the status.
 
 ## Library API
 

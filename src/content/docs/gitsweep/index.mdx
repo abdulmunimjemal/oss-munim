@@ -1,13 +1,13 @@
 ---
 title: gitsweep
-description: Interactively delete stale local git branches — already merged, or whose upstream is gone — in one command.
+description: Interactively delete stale local git branches — already merged, or whose upstream is gone — in one safe command.
 ---
 
 import { Card, CardGrid, LinkCard, Badge } from '@astrojs/starlight/components';
 
 **Clean up stale local git branches in one command.** `gitsweep` finds local
-branches that are already merged or whose upstream is gone, shows you the list,
-and deletes them after your confirmation.
+branches that are already merged or whose upstream is gone, shows you the list
+grouped by reason, and deletes them only after your confirmation.
 
 Local branches pile up. You merge a PR, the remote branch gets deleted, but the
 local copy lingers. Multiply that by every feature you ship and `git branch`
@@ -33,23 +33,33 @@ branch** are never touched.
     Finds branches **merged** into the default branch and branches whose
     upstream is **gone** (the `[origin/x: gone]` marker in `git branch -vv`).
   </Card>
-  <Card title="Safe by default" icon="approve-check">
-    The current branch and the default branch are **never deleted**. Merged
-    branches use the safe `git branch -d`; force deletes are flagged clearly.
+  <Card title="Never deletes your work" icon="approve-check">
+    The current branch and the default branch are **always excluded**. Merged
+    branches use the safe `git branch -d`, which refuses to drop unmerged work.
   </Card>
-  <Card title="Confirm before deleting" icon="warning">
-    Branches are grouped and shown to you first. Nothing is removed until you
-    confirm — or pass `--dry-run` to change nothing at all.
+  <Card title="Force deletes are flagged" icon="warning">
+    A gone-but-unmerged branch needs `git branch -D`. `gitsweep` labels it
+    **force delete** in the list, so you know exactly what you're agreeing to.
   </Card>
-  <Card title="No surprises" icon="setting">
-    Pure Node.js over `git`. Filter with `--merged` / `--gone`, override the
-    default branch with `--main`, or skip the prompt with `-y`.
+  <Card title="Confirm, or don't touch" icon="random">
+    Candidates are grouped and shown first; nothing is removed until you type
+    `y`. Or pass `--dry-run` to preview and change nothing at all.
+  </Card>
+  <Card title="Filter what you sweep" icon="setting">
+    Narrow to just `--merged` or just `--gone`, override detection with
+    `--main <branch>`, or skip the prompt in scripts with `-y`.
+  </Card>
+  <Card title="Pure Node over git" icon="rocket">
+    No daemon, no config, no network. A thin wrapper around your local `git`,
+    with the branch-selection logic in pure, well-tested functions.
   </Card>
 </CardGrid>
 
 ## Next steps
 
-<LinkCard title="Usage" href="/gitsweep/usage/" description="Install, flags, safety guarantees, exit codes, and examples." />
+<LinkCard title="Quick start" href="/gitsweep/quick-start/" description="Install, dry-run, then confirm and delete — in three steps." />
+<LinkCard title="How it works" href="/gitsweep/how-it-works/" description="What counts as stale, how the default branch is found, and the safety guarantees." />
+<LinkCard title="CLI reference" href="/gitsweep/cli/" description="Every flag, exit codes, and copy-paste examples." />
 
 ---
 
