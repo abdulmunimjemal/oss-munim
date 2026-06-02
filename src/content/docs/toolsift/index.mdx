@@ -1,0 +1,90 @@
+---
+title: toolsift
+description: Local MCP proxy that ends tool-definition bloat — retrieve the few tools you need, not all 50.
+---
+
+import { Icon, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**A local MCP proxy that ends tool-definition bloat.** toolsift sits between your
+agent and N upstream MCP servers and exposes a *tiny* surface — `search_tools` +
+`invoke_tool` — so the agent retrieves only the tools it needs for this turn
+instead of paying for 50+ JSON schemas up front.
+
+When an agent is wired to several MCP servers, their tool definitions can eat a
+huge slice of the context window *before the first message* — schemas,
+descriptions, and parameter lists for dozens of tools the agent won't use this
+turn. toolsift connects to your upstreams as a client, aggregates their tools
+into a local index, and re-exposes just two meta-tools. The agent calls
+`search_tools("open a github issue")` to pull back the handful of relevant
+definitions, then `invoke_tool(...)` to run one. This is the **RAG-MCP /
+lazy-tool-loading** pattern.
+
+```ansi
+  toolsift
+
+  tools: 28 · queries: 28 · k: 5 · baseline surface: 1342 tokens
+
+  retriever   recall@5  mrr   tokens  saved
+  ----------  --------  ----  ------  -----
+  all-tools   1.00      1.00  1342    0%
+  bm25        0.89      0.67  223     83%
+  embeddings  1.00      0.90  242     82%
+  hybrid      0.96      0.80  236     82%
+
+  → embeddings: recall@5 1.00 · 82% fewer tokens than loading every tool
+```
+
+<div class="cs-features">
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--gold"><Icon name="setting" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">100% local</p>
+      <p>BM25 + optional local embeddings. No API key, no network beyond your own upstreams, no telemetry. Tool definitions never leave the machine.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--violet"><Icon name="random" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Model-agnostic</p>
+      <p>Speaks MCP over stdio — works with Claude Code, Cursor, Codex, or any MCP client. No agent-specific plugins needed.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--green"><Icon name="puzzle" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Three retrievers</p>
+      <p>BM25 (zero-dependency default), semantic embeddings via a 23 MB local model (no API key), and a hybrid RRF fusion of both. Pluggable <code>EmbedFn</code> for your own backend.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--pink"><Icon name="rocket" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Key-free eval harness</p>
+      <p>Ships a deterministic eval that scores recall@k, MRR, and token savings against your own toolset — no API key needed. <a href="/toolsift/benchmarks/">See benchmarks</a>.</p>
+    </div>
+  </div>
+</div>
+
+## Install in one command
+
+```bash
+npx toolsift install
+```
+
+This wires toolsift into Claude Code and Cursor automatically. Restart your
+agent and it sees `search_tools` + `invoke_tool` instead of all N upstream
+definitions.
+
+## Next steps
+
+<LinkCard title="Quick start" href="/toolsift/quick-start/" description="Write toolsift.json and wire it into your agent in two minutes." />
+<LinkCard title="MCP tools" href="/toolsift/mcp-tools/" description="The agent-facing tools: search_tools, invoke_tool, list_servers, and pinned pass-throughs." />
+<LinkCard title="Benchmarks" href="/toolsift/benchmarks/" description="Recall@k, MRR, and token savings across six domains and 60 tools — measured, reproducible, honest." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <Badge text="MCP proxy" variant="tip" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/toolsift">github.com/abdulmunimjemal/toolsift</a>
+</p>

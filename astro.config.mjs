@@ -89,6 +89,19 @@ export default defineConfig({
           ],
         },
         {
+          label: "toolsift",
+          items: [
+            { label: "Introduction", link: "/toolsift/" },
+            { label: "Quick start", link: "/toolsift/quick-start/" },
+            { label: "MCP tools", link: "/toolsift/mcp-tools/" },
+            { label: "CLI", link: "/toolsift/cli/" },
+            { label: "Retrievers", link: "/toolsift/retrievers/" },
+            { label: "How it works", link: "/toolsift/how-it-works/" },
+            { label: "Benchmarks", link: "/toolsift/benchmarks/" },
+            { label: "Programmatic API", link: "/toolsift/api/" },
+          ],
+        },
+        {
           label: "promptsize",
           items: [
             { label: "Introduction", link: "/promptsize/" },
