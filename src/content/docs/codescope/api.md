@@ -7,13 +7,13 @@ Everything codescope does is importable. The package ships ESM with type
 declarations.
 
 ```bash
-npm install @abdulmunimjemal/codescope
+npm install codescope-mcp
 ```
 
 ## Index and query a repo
 
 ```ts
-import { GraphStore, Indexer } from "@abdulmunimjemal/codescope";
+import { GraphStore, Indexer } from "codescope-mcp";
 
 const store = new GraphStore("graph.db");      // or ":memory:"
 const indexer = new Indexer(store, "/path/to/repo");
@@ -33,7 +33,7 @@ store.close();
 ## Keep it fresh
 
 ```ts
-import { watch } from "@abdulmunimjemal/codescope";
+import { watch } from "codescope-mcp";
 
 const handle = watch(indexer, {
   onChange: (file, action) => console.log(action, file), // "indexed" | "removed"
@@ -45,7 +45,7 @@ await handle.close();
 ## Affected tests
 
 ```ts
-import { affected } from "@abdulmunimjemal/codescope";
+import { affected } from "codescope-mcp";
 
 const { tests } = affected(store, ["src/store.ts", "src/parser.ts"]);
 // tests: string[] — the test files a change likely affects
@@ -54,7 +54,7 @@ const { tests } = affected(store, ["src/store.ts", "src/parser.ts"]);
 ## Parse a single source string
 
 ```ts
-import { parseSource, languageForPath } from "@abdulmunimjemal/codescope";
+import { parseSource, languageForPath } from "codescope-mcp";
 
 const lang = languageForPath("example.ts");          // → LanguageConfig | undefined
 const { symbols, refs } = await parseSource("typescript", "export function f(){}");
@@ -63,7 +63,7 @@ const { symbols, refs } = await parseSource("typescript", "export function f(){}
 ## Run the MCP server in-process
 
 ```ts
-import { createServer, runStdioServer, GraphStore } from "@abdulmunimjemal/codescope";
+import { createServer, runStdioServer, GraphStore } from "codescope-mcp";
 
 const store = new GraphStore(":memory:");
 // …index…
@@ -74,7 +74,7 @@ const server = createServer(store);     // an McpServer you can wire to any tran
 ## Programmatic install
 
 ```ts
-import { install } from "@abdulmunimjemal/codescope";
+import { install } from "codescope-mcp";
 
 install("/path/to/repo", { agents: ["claude", "cursor"] });
 ```

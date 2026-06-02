@@ -7,8 +7,8 @@ description: Every codescope command — index, serve over MCP, watch, and query
 codescope <command> [path] [options]
 ```
 
-Run via `npx @abdulmunimjemal/codescope <command>` or install globally with
-`npm i -g @abdulmunimjemal/codescope` (the installed binary is `codescope`).
+Run via `npx codescope-mcp <command>` or install globally with
+`npm i -g codescope-mcp` (the installed binary is `codescope`).
 
 ## Commands
 

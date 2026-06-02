@@ -8,7 +8,7 @@ description: Index a repo and wire codescope into your AI agent in two minutes.
 From your project root:
 
 ```bash
-npx @abdulmunimjemal/codescope install
+npx codescope-mcp install
 ```
 
 ```ansi
@@ -37,13 +37,13 @@ codescope mcp /path/to/your/repo
 ```json
 {
   "mcpServers": {
-    "codescope": { "command": "npx", "args": ["-y", "@abdulmunimjemal/codescope", "mcp", "."] }
+    "codescope": { "command": "npx", "args": ["-y", "codescope-mcp", "mcp", "."] }
   }
 }
 ```
 
 **Cursor / Codex / any MCP client** — same command:
-`npx -y @abdulmunimjemal/codescope mcp .`
+`npx -y codescope-mcp mcp .`
 
 When it starts, codescope indexes the repo, begins watching for changes, and
 serves the graph. Your agent now has tools like `search_symbols`, `find_callers`,
