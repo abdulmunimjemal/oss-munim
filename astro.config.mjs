@@ -4,7 +4,9 @@ import starlight from "@astrojs/starlight";
 
 // Append a "View on GitHub" link to every tool's sidebar group, so each page
 // links to that tool's repo (the global nav icon only points at the profile).
-// The group label is the repo name (github.com/abdulmunimjemal/<label>).
+// The group label is usually the repo name; REPO_OVERRIDES handles the few that
+// differ (e.g. codescope's repo is published as codescope-mcp).
+const REPO_OVERRIDES = { codescope: "codescope-mcp" };
 function withRepoLinks(groups) {
   return groups.map((group) =>
     "items" in group
@@ -14,7 +16,7 @@ function withRepoLinks(groups) {
             ...group.items,
             {
               label: "View on GitHub ↗",
-              link: `https://github.com/abdulmunimjemal/${group.label}`,
+              link: `https://github.com/abdulmunimjemal/${REPO_OVERRIDES[group.label] ?? group.label}`,
               attrs: { target: "_blank", rel: "noopener" },
             },
           ],
