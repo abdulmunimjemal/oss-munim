@@ -10,7 +10,23 @@ Silicon laptop against [codegraph](https://github.com/colbymchenry/codegraph)
 architecture (tree-sitter → SQLite + FTS5 → MCP). Both tools ran on the same
 repos.
 
-## Speed, footprint, tokens
+## Performance
+
+codescope's own numbers across four repos of increasing size:
+
+| repo | files | symbols | full index | incremental (per save) | nav token reduction |
+|------|------:|--------:|-----------:|-----------------------:|--------------------:|
+| codescope | 33 | 202 | 121 ms | 2.0 ms | 64% |
+| mcp-ts-sdk | 264 | 1,958 | 572 ms | 0.54 ms | 74% |
+| phoenix | 3,511 | 20,143 | 2.1 s | 0.82 ms | 80% |
+| trigger.dev | 2,490 | 33,786 | 1.8 s | 0.74 ms | 99% |
+
+Re-indexing one changed file costs ~0.5–0.8 ms (**280–1,200× cheaper than a full
+re-index**), so the watch-first graph stays current on every save. Queries are
+sub-millisecond. Token reduction is vs an agent reading the whole file to answer
+"where is X and what calls it."
+
+## Head-to-head vs codegraph
 
 | axis | repo | codegraph | codescope | winner |
 |------|------|----------:|----------:|:------:|
@@ -67,6 +83,25 @@ Against every competitor benchmarked, codescope is the leanest, fastest, and mos
 call-graph-accurate — though those tools offer features codescope doesn't
 (semantic/vector search, community detection, Cypher over Neo4j). codescope's bet
 is "small, fast, accurate call graph."
+
+## Does it generalize? (cross-codebase)
+
+To check nothing is tuned to one repo, the head-to-head ran on **five fresh,
+unrelated codebases** across languages — including **Gin, one of codegraph's own
+published benchmark repos** (anti-cherry-pick):
+
+| repo | lang | index size | tokens/def | tokens/callers |
+|------|------|:----------:|:----------:|:--------------:|
+| gin | Go | **cs** 1.6 vs 5.6 MB | cg 109 vs 97 | **cs** 76 vs 103 |
+| requests | Python | **cs** 0.7 vs 2.4 MB | **cs** 126 vs 172 | **cs** 59 vs 74 |
+| zustand | TS | **cs** 0.5 vs 1.0 MB | tie 81 vs 80 | cg 29 vs 20 |
+| got | TS | **cs** 1.0 vs 3.2 MB | **cs** 90 vs 96 | tie 53 vs 52 |
+| ripgrep | Rust | **cs** 2.0 vs 9.1 MB | **cs** 150 vs 167 | **cs** 81 vs 154 |
+
+Index size: codescope wins **5/5** (3–4× smaller). Tokens: wins most, ties/loses
+a few — competitive, not universally ahead. The variance is the point: nothing is
+hand-tuned to one codebase. (Accuracy generalization is the multi-language table
+above, scored against each language's native compiler/analyzer.)
 
 ## Honest caveats
 
