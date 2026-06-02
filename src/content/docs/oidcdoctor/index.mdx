@@ -1,0 +1,88 @@
+---
+title: oidcdoctor
+description: Wire OIDC login into your app and prove it works against Keycloak — scaffold, reconcile, verify, sync. No more redirect_uri guesswork.
+---
+
+import { Icon, LinkCard, Badge } from '@astrojs/starlight/components';
+
+**Wire OIDC login into your app — and prove it actually works against Keycloak.**
+oidcdoctor scaffolds your OIDC login, reconciles your app config against the
+*real* Keycloak client, then runs a **real authorization-code + PKCE handshake
+over plain HTTP — no browser** — to assert a token is issued.
+
+Writing login code is easy. Knowing it works is the hard part. The #1 Keycloak
+pain — `redirect_uri` mismatch, PKCE required-but-missing, public-vs-confidential
+confusion — only fails at runtime, in a browser, with an opaque error. AI agents
+are great at writing login code; they can't tell if it runs. oidcdoctor *is* that
+feedback loop.
+
+```ansi
+  scaffold → analyze (reconcile) → verify (real handshake) → sync → verify ✓
+
+  $ oidcdoctor verify
+  ✗ login failed at step 'authorize'.
+
+  redirect_uri_mismatch  'http://localhost:3000/api/auth/callback' differs from
+    registered 'http://localhost:3000/api/auth/callback/' only by a trailing slash
+    — Keycloak matches paths exactly
+    app: Make the app's redirect_uri exactly '…/callback', watch trailing-slash.
+    keycloak: Add '…/callback' to Valid Redirect URIs, or run oidcdoctor sync.
+
+  $ oidcdoctor sync && oidcdoctor verify
+  ✓ patched Keycloak client 'my-app'.
+  ✓ login works — a token was issued (reached step 'done').
+```
+
+<div class="cs-features">
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--gold"><Icon name="setting" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">100% local, no browser</p>
+      <p>The verification handshake drives Keycloak over <code>fetch</code> — builds the authorize URL, scrapes the login form, POSTs credentials, catches the code off the redirect, exchanges it for tokens. No Playwright, no headless Chromium, no API key.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--violet"><Icon name="random" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Agent-native</p>
+      <p>Run as an MCP server (<code>oidcdoctor mcp</code>) and wire it into Claude Code, Cursor, or Codex in one command. Four tools expose the full loop: <code>analyze</code>, <code>verify_login</code>, <code>sync_client</code>, <code>scaffold</code>.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--green"><Icon name="puzzle" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">8 failure classes, two-sided fixes</p>
+      <p>The reconciler models Keycloak's exact matching rules and detects every classic mismatch — scheme, host, port, trailing slash, PKCE method, client type, web origins, openid scope, post-logout URI — with a fix for both the app and Keycloak.</p>
+    </div>
+  </div>
+  <div class="cs-feature">
+    <span class="cs-feature__icon cs-ico--pink"><Icon name="rocket" /></span>
+    <div class="cs-feature__body">
+      <p class="cs-feature__title">Scaffold → verify → heal loop</p>
+      <p>Generate consistent login code (Next.js / FastAPI / Django), sync the Keycloak client to match, run the real handshake. The moat is the verification loop, not the codegen. <a href="/oidcdoctor/how-it-works/">How it works</a>.</p>
+    </div>
+  </div>
+</div>
+
+## Install in one command
+
+```bash
+npx oidcdoctor install
+```
+
+This wires oidcdoctor into Claude Code and Cursor automatically. Restart your
+agent and it can scaffold, analyze, verify, and sync your OIDC login.
+
+## Next steps
+
+<LinkCard title="Quick start" href="/oidcdoctor/quick-start/" description="Write oidcdoctor.json, scaffold login code, and run a real handshake in five minutes." />
+<LinkCard title="Failure classes" href="/oidcdoctor/failure-classes/" description="The 8 reconciler findings — what each means and the exact fix on both sides." />
+<LinkCard title="How it works" href="/oidcdoctor/how-it-works/" description="The scaffold → reconcile → verify → sync → re-verify pipeline, explained." />
+
+---
+
+<p>
+  <Badge text="MIT" variant="note" /> &nbsp;
+  <Badge text="MCP server" variant="tip" /> &nbsp;
+  <a href="https://github.com/abdulmunimjemal/oidcdoctor">github.com/abdulmunimjemal/oidcdoctor</a>
+</p>

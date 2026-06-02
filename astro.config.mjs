@@ -102,6 +102,18 @@ export default defineConfig({
           ],
         },
         {
+          label: "oidcdoctor",
+          items: [
+            { label: "Introduction", link: "/oidcdoctor/" },
+            { label: "Quick start", link: "/oidcdoctor/quick-start/" },
+            { label: "Commands", link: "/oidcdoctor/commands/" },
+            { label: "Failure classes", link: "/oidcdoctor/failure-classes/" },
+            { label: "How it works", link: "/oidcdoctor/how-it-works/" },
+            { label: "Frameworks", link: "/oidcdoctor/frameworks/" },
+            { label: "Programmatic API", link: "/oidcdoctor/api/" },
+          ],
+        },
+        {
           label: "promptsize",
           items: [
             { label: "Introduction", link: "/promptsize/" },
